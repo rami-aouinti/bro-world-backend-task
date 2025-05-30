@@ -79,14 +79,14 @@ readonly class BlogController
      */
     private function getFormattedPosts(): array
     {
-        return $this->getBlog();
+        return $this->getBlogs();
     }
 
     /**
      * @throws NotSupported
      * @return array
      */
-    private function getBlog(): array
+    private function getBlogs(): array
     {
         return $this->blogRepository->findAll();
     }
