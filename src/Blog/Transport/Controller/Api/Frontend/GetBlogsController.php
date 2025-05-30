@@ -41,8 +41,7 @@ readonly class GetBlogsController
 {
     public function __construct(
         private BlogRepositoryInterface $repository,
-        private CacheInterface $cache,
-        private HttpClientInterface $httpClient
+        private CacheInterface $cache
     ) {
     }
 
@@ -55,7 +54,7 @@ readonly class GetBlogsController
      * @throws InvalidArgumentException
      * @return JsonResponse
      */
-    #[Route(path: '/v1/platform/blog', name: 'blog_index', methods: [Request::METHOD_GET])]
+    #[Route(path: '/public/v1/platform/blog', name: 'blog_index', methods: [Request::METHOD_GET])]
     #[Cache(smaxage: 10)]
     #[OA\Response(
         response: 200,
@@ -104,23 +103,6 @@ readonly class GetBlogsController
         $blogs = $this->cache->get($cacheKey, fn (ItemInterface $item) => $this->getClosure($symfonyUser, $request)($item));
 
         return new JsonResponse($blogs);
-    }
-
-    /**
-     * @throws TransportExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
-     * @throws ClientExceptionInterface
-     */
-    private function getMedia(Request $request, string $media): string
-    {
-        $mediaResponse = $this->httpClient->request('GET', "http://media.bro-world.org/api/v1/platform/media/$media", [
-            'headers' => ['Authorization' => $request->headers->get('Authorization')],
-        ]);
-
-        $mediaData = $mediaResponse->toArray();
-        return 'http://media.bro-world.org/uploads/' . $mediaData['path'];
     }
 
     /**
