@@ -113,6 +113,7 @@ readonly class PostsController
                 'tags' => $post->getTags(),
                 'medias' => $post->getMedias(),
                 'likes' => $post->getLikes(),
+                'publishedAt' => $post->getPublishedAt()?->format(DATE_ATOM),
                 'blog' => [
                     'title' => $post->getBlog()->getTitle(),
                     'blogSubtitle' => $post->getBlog()->getBlogSubtitle(),
