@@ -242,6 +242,8 @@
       <excludeFolder url="file://$MODULE_DIR$/tools/10_phpcpd/vendor/sebastian/cli-parser" />
       <excludeFolder url="file://$MODULE_DIR$/tools/10_phpcpd/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/tools/10_phpcpd/vendor/systemsdk/phpcpd" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mercure" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mercure-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
