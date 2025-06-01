@@ -55,7 +55,7 @@ readonly class PostsController
     #[Cache(smaxage: 10)]
     public function __invoke(): JsonResponse
     {
-        $cacheKey = 'all_public_post';
+        $cacheKey = 'all_post';
         $blogs = $this->cache->get($cacheKey, fn (ItemInterface $item) => $this->getClosure()($item));
         $output = JSON::decode(
             $this->serializer->serialize(
@@ -112,6 +112,7 @@ readonly class PostsController
                 'title' => $post->getTitle(),
                 'summary' => $post->getSummary(),
                 'content' => $post->getContent(),
+                'slug' => $post->getSlug(),
                 'tags' => $post->getTags(),
                 'medias' => $post->getMedias(),
                 'likes' => $post->getLikes(),
