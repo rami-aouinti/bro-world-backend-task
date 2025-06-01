@@ -13,6 +13,7 @@ namespace App\General\Domain\Entity\Traits;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\String\AbstractString;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,6 +24,11 @@ trait SlugTrait
 {
     #[ORM\Column(type: Types::STRING, length: 255)]
     #[Assert\NotBlank]
+    #[Groups([
+        'Post',
+        'Post_Show',
+        self::SET_BLOG_INDEX,
+    ])]
     private string $slug;
 
     public function getSlug(): string

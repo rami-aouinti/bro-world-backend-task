@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Blog\Transport\Controller\Frontend;
 
 use App\Blog\Application\ApiProxy\UserProxy;
+use App\Blog\Domain\Entity\Post;
 use App\Blog\Domain\Repository\Interfaces\PostRepositoryInterface;
 use App\General\Domain\Utils\JSON;
 use Closure;
@@ -16,7 +17,6 @@ use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -33,7 +33,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
  */
 #[AsController]
 #[OA\Tag(name: 'Blog')]
-readonly class PostsController
+readonly class PostController
 {
     public function __construct(
         private SerializerInterface $serializer,
@@ -46,17 +46,18 @@ readonly class PostsController
     /**
      * Get current user blog data, accessible only for 'IS_AUTHENTICATED_FULLY' users
      *
+     * @param string $slug
+     *
      * @throws ExceptionInterface
      * @throws InvalidArgumentException
      * @throws JsonException
      * @return JsonResponse
      */
-    #[Route(path: '/public/post', name: 'public_post_index', methods: [Request::METHOD_GET])]
-    #[Cache(smaxage: 10)]
-    public function __invoke(): JsonResponse
+    #[Route(path: '/public/post/{slug}', name: 'public_post_slug', methods: [Request::METHOD_GET])]
+    public function __invoke(string $slug): JsonResponse
     {
-        $cacheKey = 'all_public_post';
-        $blogs = $this->cache->get($cacheKey, fn (ItemInterface $item) => $this->getClosure()($item));
+        $cacheKey = 'public_post_slug';
+        $blogs = $this->cache->get($cacheKey, fn (ItemInterface $item) => $this->getClosure($slug)($item));
         $output = JSON::decode(
             $this->serializer->serialize(
                 $blogs,
@@ -72,27 +73,31 @@ readonly class PostsController
 
     /**
      *
+     * @param string $slug
+     *
      * @return Closure
      */
-    private function getClosure(): Closure
+    private function getClosure(string $slug): Closure
     {
-        return function (ItemInterface $item): array {
+        return function (ItemInterface $item) use ($slug): array {
             $item->expiresAfter(3600);
 
-            return $this->getFormattedPosts();
+            return $this->getFormattedPost($slug);
         };
     }
 
     /**
-     * @throws NotSupported
+     * @param string $slug
+     *
      * @throws ClientExceptionInterface
      * @throws DecodingExceptionInterface
+     * @throws NotSupported
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      * @return array
      */
-    private function getFormattedPosts(): array
+    private function getFormattedPost(string $slug): array
     {
         $users = $this->userProxy->getUsers();
 
@@ -101,27 +106,24 @@ readonly class PostsController
             $usersById[$user['id']] = $user;
         }
 
-        $posts = $this->getPosts();
-        $output = [];
-
-        foreach ($posts as $post) {
-            $authorId = $post->getAuthor()->toString();
-
-            $postData = [
-                'id' => $post->getId(),
-                'title' => $post->getTitle(),
-                'summary' => $post->getSummary(),
-                'content' => $post->getContent(),
-                'tags' => $post->getTags(),
-                'medias' => $post->getMedias(),
-                'likes' => $post->getLikes(),
-                'publishedAt' => $post->getPublishedAt()?->format(DATE_ATOM),
-                'blog' => [
-                    'title' => $post->getBlog()->getTitle(),
-                    'blogSubtitle' => $post->getBlog()->getBlogSubtitle(),
+        $post = $this->getPost($slug);
+        $authorId = $post->getAuthor()->toString();
+        $postData = [
+            'id' => $post->getId(),
+            'title' => $post->getTitle(),
+            'summary' => $post->getSummary(),
+            'content' => $post->getContent(),
+            'slug' => $post->getSlug(),
+            'tags' => $post->getTags(),
+            'medias' => $post->getMedias(),
+            'likes' => $post->getLikes(),
+            'publishedAt' => $post->getPublishedAt()?->format(DATE_ATOM),
+            'blog' => [
+                'title' => $post->getBlog()->getTitle(),
+                'blogSubtitle' => $post->getBlog()->getBlogSubtitle(),
                 ],
-                'user' => $usersById[$authorId] ?? null,
-                'comments' => [],
+            'user' => $usersById[$authorId] ?? null,
+            'comments' => [],
             ];
 
             foreach ($post->getComments() as $comment) {
@@ -135,19 +137,20 @@ readonly class PostsController
                 ];
             }
 
-            $output[] = $postData;
-        }
-
-        return $output;
+        return $postData;
     }
 
 
     /**
+     * @param $slug
+     *
      * @throws NotSupported
-     * @return array
+     * @return Post|null
      */
-    private function getPosts(): array
+    private function getPost($slug): Post|null
     {
-        return $this->postRepository->findAll();
+        return $this->postRepository->findOneBy([
+            'slug' => $slug
+        ]);
     }
 }
