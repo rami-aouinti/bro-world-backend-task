@@ -46,6 +46,8 @@ readonly class PostsController
     /**
      * Get current user blog data, accessible only for 'IS_AUTHENTICATED_FULLY' users
      *
+     * @param Request $request
+     *
      * @throws ExceptionInterface
      * @throws InvalidArgumentException
      * @throws JsonException
@@ -53,10 +55,15 @@ readonly class PostsController
      */
     #[Route(path: '/public/post', name: 'public_post_index', methods: [Request::METHOD_GET])]
     #[Cache(smaxage: 10)]
-    public function __invoke(): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
-        $cacheKey = 'all_post';
-        $blogs = $this->cache->get($cacheKey, fn (ItemInterface $item) => $this->getClosure()($item));
+        $cacheKey = 'all_post_public';
+        $page = max(1, (int)$request->query->get('page', 1));
+        $limit = (int)$request->query->get('limit', 5);
+        $offset = ($page - 1) * $limit;
+
+
+        $blogs = $this->cache->get($cacheKey, fn (ItemInterface $item) => $this->getClosure($limit, $offset)($item));
         $output = JSON::decode(
             $this->serializer->serialize(
                 $blogs,
@@ -72,27 +79,33 @@ readonly class PostsController
 
     /**
      *
+     * @param $limit
+     * @param $offset
+     *
      * @return Closure
      */
-    private function getClosure(): Closure
+    private function getClosure($limit, $offset): Closure
     {
-        return function (ItemInterface $item): array {
+        return function (ItemInterface $item) use($limit, $offset): array {
             $item->expiresAfter(3600);
 
-            return $this->getFormattedPosts();
+            return $this->getFormattedPosts($limit, $offset);
         };
     }
 
     /**
-     * @throws NotSupported
+     * @param $limit
+     * @param $offset
+     *
      * @throws ClientExceptionInterface
      * @throws DecodingExceptionInterface
+     * @throws NotSupported
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      * @return array
      */
-    private function getFormattedPosts(): array
+    private function getFormattedPosts($limit, $offset): array
     {
         $users = $this->userProxy->getUsers();
 
@@ -101,7 +114,7 @@ readonly class PostsController
             $usersById[$user['id']] = $user;
         }
 
-        $posts = $this->getPosts();
+        $posts = $this->getPosts($limit, $offset);
         $output = [];
 
         foreach ($posts as $post) {
@@ -144,11 +157,14 @@ readonly class PostsController
 
 
     /**
+     * @param $limit
+     * @param $offset
+     *
      * @throws NotSupported
      * @return array
      */
-    private function getPosts(): array
+    private function getPosts($limit, $offset): array
     {
-        return $this->postRepository->findAll();
+        return $this->postRepository->findBy([], ['publishedAt' => 'DESC'], $limit, $offset);
     }
 }
