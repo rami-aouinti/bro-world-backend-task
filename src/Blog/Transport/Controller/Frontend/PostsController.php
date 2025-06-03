@@ -57,11 +57,11 @@ readonly class PostsController
     #[Cache(smaxage: 10)]
     public function __invoke(Request $request): JsonResponse
     {
-        $cacheKey = 'all_post_public';
+
         $page = max(1, (int)$request->query->get('page', 1));
         $limit = (int)$request->query->get('limit', 5);
         $offset = ($page - 1) * $limit;
-
+        $cacheKey = 'all_post_public_' . $page . '_' . $limit . '_';
 
         $blogs = $this->cache->get($cacheKey, fn (ItemInterface $item) => $this->getClosure($limit, $offset)($item));
         $output = JSON::decode(
