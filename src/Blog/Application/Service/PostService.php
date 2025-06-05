@@ -82,7 +82,7 @@ readonly class PostService
         }
 
         $this->postRepository->save($post);
-        $this->cache->delete('all_post_public_1_10');
+        $this->cache->delete('post_public_1_5');
     }
 
     /**
