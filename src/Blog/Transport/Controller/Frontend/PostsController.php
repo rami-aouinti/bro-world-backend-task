@@ -131,8 +131,8 @@ readonly class PostsController
                 'likes' => $post->getLikes(),
                 'publishedAt' => $post->getPublishedAt()?->format(DATE_ATOM),
                 'blog' => [
-                    'title' => $post->getBlog()->getTitle(),
-                    'blogSubtitle' => $post->getBlog()->getBlogSubtitle(),
+                    'title' => $post->getBlog()?->getTitle(),
+                    'blogSubtitle' => $post->getBlog()?->getBlogSubtitle(),
                 ],
                 'user' => $usersById[$authorId] ?? null,
                 'comments' => [],

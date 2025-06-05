@@ -107,25 +107,26 @@ readonly class PostController
         }
 
         $post = $this->getPost($slug);
-        $authorId = $post->getAuthor()->toString();
-        $postData = [
-            'id' => $post->getId(),
-            'title' => $post->getTitle(),
-            'summary' => $post->getSummary(),
-            'content' => $post->getContent(),
-            'slug' => $post->getSlug(),
-            'tags' => $post->getTags(),
-            'medias' => $post->getMedias(),
-            'likes' => $post->getLikes(),
-            'publishedAt' => $post->getPublishedAt()?->format(DATE_ATOM),
-            'blog' => [
-                'title' => $post->getBlog()->getTitle(),
-                'blogSubtitle' => $post->getBlog()->getBlogSubtitle(),
+        $postData = [];
+        if($post) {
+            $authorId = $post->getAuthor()->toString();
+            $postData = [
+                'id' => $post->getId(),
+                'title' => $post->getTitle(),
+                'summary' => $post->getSummary(),
+                'content' => $post->getContent(),
+                'slug' => $post->getSlug(),
+                'tags' => $post->getTags(),
+                'medias' => $post->getMedias(),
+                'likes' => $post->getLikes(),
+                'publishedAt' => $post->getPublishedAt()?->format(DATE_ATOM),
+                'blog' => [
+                    'title' => $post->getBlog()?->getTitle(),
+                    'blogSubtitle' => $post->getBlog()?->getBlogSubtitle(),
                 ],
-            'user' => $usersById[$authorId] ?? null,
-            'comments' => [],
+                'user' => $usersById[$authorId] ?? null,
+                'comments' => [],
             ];
-
             foreach ($post->getComments() as $comment) {
                 $commentAuthorId = $comment->getAuthor()->toString();
 
@@ -136,6 +137,7 @@ readonly class PostController
                     'user' => $usersById[$commentAuthorId] ?? null,
                 ];
             }
+        }
 
         return $postData;
     }
