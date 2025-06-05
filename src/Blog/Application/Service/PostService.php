@@ -8,6 +8,7 @@ use App\Blog\Domain\Entity\Blog;
 use App\Blog\Domain\Entity\Post;
 use App\Blog\Domain\Entity\Tag;
 use App\Blog\Domain\Message\CreatePostMessenger;
+use App\Blog\Domain\Repository\Interfaces\BlogRepositoryInterface;
 use App\Blog\Domain\Repository\Interfaces\PostRepositoryInterface;
 use App\Blog\Domain\Repository\Interfaces\TagRepositoryInterface;
 use App\General\Infrastructure\ValueObject\SymfonyUser;
@@ -37,6 +38,7 @@ readonly class PostService
         private EntityManagerInterface $entityManager,
         private TagRepositoryInterface $tagRepository,
         private PostRepositoryInterface $postRepository,
+        private BlogRepositoryInterface $blogRepository,
         private CacheInterface $cache,
         private MessageBusInterface $bus
     ) {}
@@ -92,7 +94,6 @@ readonly class PostService
         $data = $request->request->all();
 
         $post = (new Post())
-            ->setBlog($blog)
             ->setAuthor(Uuid::fromString($user->getUserIdentifier()))
             ->setTitle($data['title'])
             ->setSlug($data['title']);
