@@ -73,7 +73,7 @@ class Post implements EntityInterface, Stringable
     protected UuidInterface $author;
 
     #[ORM\ManyToOne(targetEntity: Blog::class, cascade: ['persist'], inversedBy: 'posts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     #[Groups([
         'Post',
         'Post_Show',
