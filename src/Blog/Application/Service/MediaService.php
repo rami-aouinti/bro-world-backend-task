@@ -17,7 +17,7 @@ use Throwable;
 readonly class MediaService
 {
     private const string PATH = 'media';
-    private const string CREATE_MEDIA_PATH = 'api/v1/platform/media';
+    private const string CREATE_MEDIA_PATH = 'v1/platform/media';
 
     public function __construct(
         private ApiProxyService $proxyService
