@@ -1,5 +1,6 @@
 framework:
     messenger:
+        default_bus: command_bus
         buses:
             command_bus:
                 middleware:
@@ -21,6 +22,14 @@ framework:
 
                     # or pass a different entity manager to any
                     #- doctrine_transaction: ['custom']
+            query.bus:
+            integrationEvent.bus:
+                default_middleware: allow_no_handlers
+            domainEvent.bus:
+                default_middleware: allow_no_handlers
+                # For development purposes only: app domains pretend to be microservices
+                middleware:
+                    - App\Shared\Infrastructure\Bus\SimulateMicroserviceMiddleware
 
         # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
         failure_transport: failed
@@ -30,9 +39,9 @@ framework:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
                 options:
                     exchange:
-                        name: blog_high
+                        name: task_high
                     queues:
-                        messages_blog_high: ~
+                        messages_task_high: ~
                 # default configuration
                 retry_strategy:
                     max_retries: 3
@@ -66,7 +75,10 @@ framework:
         routing:
             App\General\Domain\Message\Interfaces\MessageHighInterface: async_priority_high
             App\General\Domain\Message\Interfaces\MessageLowInterface: async_priority_low
-
+            App\Shared\Domain\Event\DomainEventInterface: async_priority_high
+            App\Shared\Application\Bus\Event\IntegrationEventInterface: async_priority_high
+            App\Shared\Application\Bus\Command\CommandInterface: async_priority_high
+            App\Shared\Application\Bus\Query\QueryInterface: async_priority_high
 when@test:
     framework:
         messenger:

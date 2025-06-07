@@ -7,6 +7,8 @@ parameters:
     locale: 'en'
     app.notifications.email_sender: admin@localhost
     api_media_base_url: '%env(API_MEDIA_BASE_URL)%'
+    .container.dumper.inline_factories: true
+    debug.container.dump: false
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -41,28 +43,43 @@ services:
             calls:
                 - setMailerService: [ '@App\General\Domain\Service\Interfaces\MailerServiceInterface', '%env(resolve:APP_SENDER_EMAIL)%', '%env(resolve:APP_ERROR_RECEIVER_EMAIL)%', '%env(int:APP_EMAIL_NOTIFICATION_ABOUT_ERROR)%']
                 - setTwig: ['@twig']
-
+        App\Shared\Application\Bus\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command_bus }
+        App\Shared\Application\Bus\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
+        App\Shared\Application\Bus\Event\DomainEventSubscriberInterface:
+            tags:
+                - { name: messenger.message_handler, bus: domainEvent.bus }
+        App\Shared\Application\Bus\Event\IntegrationEventSubscriberInterface:
+            tags:
+                - { name: messenger.message_handler, bus: integrationEvent.bus }
+        App\Shared\Domain\Event\DomainEventInterface:
+            tags: [ 'task_manager.domain_event' ]
+        App\Projections\Domain\Service\Projector\ProjectorInterface:
+            tags: [ 'task_manager.projector' ]
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
-            - '../src/*/Infrastructure/DataFixtures/'
             - '../src/DependencyInjection/'
             - '../src/*/Domain/Entity/'
             - '../src/*/Transport/EventListener/'
             - '../src/Kernel.php'
-
+            - '../src/*/Application/Command/*'
+            - '../src/*/Application/Query/*'
+            - '../src/*/Domain/Collection/*'
+            - '../src/*/Domain/DTO/*'
+            - '../src/*/Domain/Entity/*'
+            - '../src/*/Domain/Exception/*'
+            - '../src/*/Domain/ValueObject/*'
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\General\Transport\ValueResolver\EntityValueResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 150 }
-
-    App\Blog\Transport\EventListener\CacheInvalidationListener:
-        arguments: [ '@cache.app' ]
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
 
     App\General\Infrastructure\Messenger\Strategy\FailedRetry:
         arguments:
@@ -114,14 +131,50 @@ services:
     App\General\Infrastructure\Service\ApiProxyService:
         arguments:
             $apiMediaBaseUrl: '%api_media_base_url%'
+
+    App\Shared\Infrastructure\Service\DomainEventMapper:
+        tags:
+            - { name: task_manager.argument_loader, target_tag: task_manager.domain_event }
+
+    Symfony\Component\PasswordHasher\Hasher\Pbkdf2PasswordHasher:
+        arguments:
+            $iterations: 100
+
+    Symfony\Component\PasswordHasher\PasswordHasherInterface: '@Symfony\Component\PasswordHasher\Hasher\Pbkdf2PasswordHasher'
+
+    App\Shared\Infrastructure\Service\LexikJwtAuthenticatorService:
+        arguments:
+            $path: '^/api/(?!.*(security)|(test)|(doc)).*$'
+
+    App\Shared\Infrastructure\Service\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onException }
+        arguments:
+            $environment: '%env(string:APP_ENV)%'
+
+    Ramsey\Uuid\UuidFactory: ~
+
+    Ramsey\Uuid\UuidFactoryInterface: '@Ramsey\Uuid\UuidFactory'
+
+    App\Projections\Domain\Service\Projector\Projectionist:
+        arguments:
+            - !tagged task_manager.projector
+
+    # For development purposes only: app domains pretend to be microservices
+    Symfony\Component\Messenger\Handler\HandlersLocatorInterface: '@domainEvent.bus.messenger.handlers_locator'
+
+    App\Projections\Domain\Service\EventStore\EventStreamFactory:
+        autowire: false
+        # For development purposes only: app domains pretend to be microservices
+        arguments:
+            $streamFilter: '@App\Projections\Domain\Service\EventStore\SimulateMicroserviceEventStreamFilter'
+
+
 when@dev:
     services:
         _defaults:
             autowire: true
             autoconfigure: true
-
-        App\Blog\Infrastructure\DataFixtures\:
-            resource: '../src/Blog/Infrastructure/DataFixtures/*'
 
         App\Tests\TestCase\:
             resource: '../tests/TestCase/*'
@@ -150,9 +203,6 @@ when@test:
             autowire: true
             autoconfigure: true
             public: true
-
-        App\Blog\Infrastructure\DataFixtures\:
-            resource: '../src/Blog/Infrastructure/DataFixtures/*'
 
         App\Tests\TestCase\:
             resource: '../tests/TestCase/*'

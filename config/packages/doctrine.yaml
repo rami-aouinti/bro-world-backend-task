@@ -23,6 +23,26 @@ doctrine:
             EnumLanguage: App\General\Domain\Doctrine\DBAL\Types\EnumLanguageType
             EnumLocale: App\General\Domain\Doctrine\DBAL\Types\EnumLocaleType
             EnumLogLogin: App\General\Domain\Doctrine\DBAL\Types\EnumLogLoginType
+            tm_datetime: App\Shared\Infrastructure\Persistence\Doctrine\DateTimeType
+            user_id: App\Shared\Infrastructure\Persistence\Doctrine\UserIdType
+
+            project_id: App\Projects\Infrastructure\Persistence\Doctrine\ProjectIdType
+            project_name: App\Projects\Infrastructure\Persistence\Doctrine\ProjectNameType
+            project_description: App\Projects\Infrastructure\Persistence\Doctrine\ProjectDescriptionType
+            project_finish_date: App\Projects\Infrastructure\Persistence\Doctrine\ProjectFinishDateType
+            project_status: App\Projects\Infrastructure\Persistence\Doctrine\ProjectStatusType
+
+            request_id: App\Projects\Infrastructure\Persistence\Doctrine\RequestIdType
+            request_status: App\Projects\Infrastructure\Persistence\Doctrine\RequestStatusType
+            request_change_date: App\Projects\Infrastructure\Persistence\Doctrine\RequestChangeDateType
+
+            task_id: App\Projects\Infrastructure\Persistence\Doctrine\TaskIdType
+            task_name: App\Projects\Infrastructure\Persistence\Doctrine\TaskNameType
+            task_brief: App\Projects\Infrastructure\Persistence\Doctrine\TaskBriefType
+            task_description: App\Projects\Infrastructure\Persistence\Doctrine\TaskDescriptionType
+            task_start_date: App\Projects\Infrastructure\Persistence\Doctrine\TaskStartDateType
+            task_finish_date: App\Projects\Infrastructure\Persistence\Doctrine\TaskFinishDateType
+            task_status: App\Projects\Infrastructure\Persistence\Doctrine\TaskStatusType
 
     orm:
         auto_generate_proxy_classes: true
@@ -44,12 +64,18 @@ doctrine:
                         dir: '%kernel.project_dir%/src/General/Domain/Entity'
                         prefix: 'App\General\Domain\Entity'
                         alias: General
-                    Blog:
-                        type: attribute
+                    Projects:
+                        type: xml
                         is_bundle: false
-                        dir: '%kernel.project_dir%/src/Blog/Domain/Entity'
-                        prefix: 'App\Blog\Domain\Entity'
-                        alias: Blog
+                        dir: '%kernel.project_dir%/src/Projects/Domain/Entity'
+                        prefix: 'App\Projects\Domain\Entity'
+                        alias: Projects
+                    Projections:
+                        type: xml
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Projections/Domain/Entity'
+                        prefix: 'App\Projections\Domain\Entity'
+                        alias: Projections
                 dql:
                     datetime_functions:
                         datesub: DoctrineExtensions\Query\Mysql\DateSub
@@ -57,6 +83,7 @@ doctrine:
                     string_functions:
                         uuid_o_t_to_bin: App\General\Infrastructure\DQL\UuidOTToBin
                         bin_to_uuid_o_t: App\General\Infrastructure\DQL\BinToUuidOT
+                        cast: Oro\ORM\Query\AST\Functions\Cast
 
 when@prod: &not-dev
     doctrine:

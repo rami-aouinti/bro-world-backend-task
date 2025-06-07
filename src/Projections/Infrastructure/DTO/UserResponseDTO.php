@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Projections\Infrastructure\DTO;
+
+use OpenApi\Attributes as OA;
+use App\Projections\Domain\DTO\UserMemento;
+use App\Projections\Domain\Entity\UserProjection;
+
+final readonly class UserResponseDTO
+{
+    #[OA\Property(
+        description: 'User ID',
+        oneOf: [new OA\Schema(
+            ref: '#/components/schemas/objectId/properties/id'
+        )]
+    )]
+    public string $id;
+    #[OA\Property(
+        oneOf: [new OA\Schema(
+            ref: '#components/schemas/userModel/properties/email'
+        )]
+    )]
+    public string $email;
+    #[OA\Property(
+        oneOf: [new OA\Schema(
+            ref: '#components/schemas/userModel/properties/firstname'
+        )]
+    )]
+    public string $firstname;
+    #[OA\Property(
+        oneOf: [new OA\Schema(
+            ref: '#components/schemas/userModel/properties/lastname'
+        )]
+    )]
+    public string $lastname;
+    #[OA\Property(
+        oneOf: [new OA\Schema(
+            ref: '#components/schemas/version'
+        )]
+    )]
+    public ?int $version;
+
+    public function __construct(UserMemento $memento)
+    {
+        $this->id = $memento->id;
+        $this->email = $memento->email;
+        $this->firstname = $memento->firstname;
+        $this->lastname = $memento->lastname;
+        $this->version = $memento->version;
+    }
+
+    public static function create(UserProjection $projection): self
+    {
+        return new self($projection->createMemento());
+    }
+}

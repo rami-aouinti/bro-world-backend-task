@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Projects\Infrastructure\Persistence\Doctrine;
+
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\DateTimeType;
+use App\Projects\Domain\ValueObject\ProjectFinishDate;
+
+final class ProjectFinishDateType extends DateTimeType
+{
+    private const TYPE_NAME = 'project_finish_date';
+
+    public function convertToPHPValue($value, AbstractPlatform $platform): ProjectFinishDate
+    {
+        return new ProjectFinishDate($value);
+    }
+
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    {
+        if (null === $value) {
+            return null;
+        }
+
+        return parent::convertToDatabaseValue($value->getPhpDateTime(), $platform);
+    }
+
+    public function getName(): string
+    {
+        return self::TYPE_NAME; // modify to match your constant name
+    }
+}

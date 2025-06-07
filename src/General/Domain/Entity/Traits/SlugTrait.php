@@ -27,7 +27,6 @@ trait SlugTrait
     #[Groups([
         'Post',
         'Post_Show',
-        self::SET_BLOG_INDEX,
     ])]
     private string $slug;
 

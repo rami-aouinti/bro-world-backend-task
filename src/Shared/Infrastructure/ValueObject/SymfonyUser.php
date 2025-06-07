@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Shared\Infrastructure\ValueObject;
+
+use Symfony\Component\Security\Core\User\UserInterface;
+
+final readonly class SymfonyUser implements UserInterface
+{
+    public function __construct(private string $userIdentifier)
+    {
+    }
+
+    public function getRoles(): array
+    {
+        return [];
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->userIdentifier;
+    }
+}

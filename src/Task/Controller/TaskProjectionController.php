@@ -1,0 +1,120 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Task\Controller;
+
+use Nelmio\ApiDocBundle\Attribute\Model;
+use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Projections\Application\Query\TaskLinkQuery;
+use App\Projections\Application\Query\TaskQuery;
+use App\Projections\Infrastructure\DTO\TaskLinkResponseDTO;
+use App\Projections\Infrastructure\DTO\TaskResponseDTO;
+use App\Shared\Application\Bus\Query\QueryBusInterface;
+use App\Shared\Application\Paginator\Pagination;
+use App\Shared\Infrastructure\Criteria\QueryCriteriaFromRequestConverterInterface;
+use App\Shared\Infrastructure\Criteria\RequestCriteriaDTO;
+use App\Shared\Infrastructure\Paginator\PaginationResponseDTO;
+
+/**
+ * Class TaskProjectionController
+ *
+ * @package App\Task\Controller
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
+#[AsController]
+#[Route('/api/tasks', name: 'task.')]
+final readonly class TaskProjectionController
+{
+    public function __construct(
+        private QueryBusInterface $queryBus,
+        private QueryCriteriaFromRequestConverterInterface $converter
+    ) {
+    }
+
+    #[Route('/{id}/', name: 'get', methods: ['GET'])]
+    #[OA\Get(
+        description: 'Get task info',
+        tags: [
+            'task',
+        ],
+        parameters: [
+            new OA\Parameter(
+                ref: '#/components/parameters/taskId'
+            ),
+        ],
+        responses: [
+            new OA\Response(
+                response: '200',
+                description: 'Task info',
+                content: new OA\JsonContent(
+                    ref: new Model(type: TaskResponseDTO::class)
+                )
+            ),
+            new OA\Response(ref: '#components/responses/generic401', response: '401'),
+            new OA\Response(ref: '#components/responses/generic403', response: '403'),
+            new OA\Response(ref: '#components/responses/generic404', response: '404'),
+        ]
+    )]
+    public function get(string $id): JsonResponse
+    {
+        $task = $this->queryBus->dispatch(new TaskQuery($id));
+
+        return new JsonResponse(TaskResponseDTO::create($task));
+    }
+
+    #[Route('/{id}/links/', name: 'getAllLinks', methods: ['GET'])]
+    #[OA\Get(
+        description: 'Get all task links',
+        tags: [
+            'task',
+        ],
+        parameters: [
+            new OA\Parameter(
+                ref: '#/components/parameters/taskId'
+            ),
+        ],
+        responses: [
+            new OA\Response(
+                response: '200',
+                description: 'List of task links with pagination',
+                content: new OA\JsonContent(
+                    allOf: [
+                        new OA\Schema(
+                            ref: '#components/schemas/pagination'
+                        ),
+                        new OA\Schema(
+                            properties: [
+                                new OA\Property(
+                                    property: 'items',
+                                    type: 'array',
+                                    items: new OA\Items(
+                                        ref: new Model(type: TaskLinkResponseDTO::class)
+                                    )
+                                ),
+                            ]
+                        ),
+                    ]
+                )
+            ),
+            new OA\Response(ref: '#components/responses/generic401', response: '401'),
+            new OA\Response(ref: '#components/responses/generic403', response: '403'),
+            new OA\Response(ref: '#components/responses/generic404', response: '404'),
+        ]
+    )]
+    public function getAllLinks(string $id, RequestCriteriaDTO $criteria): JsonResponse
+    {
+        /** @var Pagination $pagination */
+        $pagination = $this->queryBus->dispatch(
+            new TaskLinkQuery($id, $this->converter->convert($criteria))
+        );
+
+        return new JsonResponse(PaginationResponseDTO::createFromPagination(
+            $pagination,
+            static fn (array $items) => TaskLinkResponseDTO::createList($items)
+        ));
+    }
+}

@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Shared\Infrastructure\Persistence\Doctrine;
+
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\DateTimeType as SymfonyDateTimeType;
+use App\Shared\Domain\ValueObject\DateTime;
+
+final class DateTimeType extends SymfonyDateTimeType
+{
+    private const TYPE_NAME = 'tm_datetime';
+
+    public function convertToPHPValue($value, AbstractPlatform $platform): DateTime
+    {
+        return new DateTime($value);
+    }
+
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    {
+        if (null === $value) {
+            return null;
+        }
+
+        return parent::convertToDatabaseValue($value->getPhpDateTime(), $platform);
+    }
+
+    public function getName(): string
+    {
+        return self::TYPE_NAME; // modify to match your constant name
+    }
+}
