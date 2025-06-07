@@ -15,8 +15,6 @@ use App\Shared\Infrastructure\Paginator\PaginationResponseDTO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class ProjectController

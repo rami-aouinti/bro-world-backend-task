@@ -6,6 +6,9 @@ namespace App\Shared\Application\Bus\Event;
 
 use App\Shared\Domain\Event\DomainEventInterface;
 
+/**
+ *
+ */
 interface IntegrationEventBusInterface
 {
     /**

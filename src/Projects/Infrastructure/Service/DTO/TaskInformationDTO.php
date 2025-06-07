@@ -8,50 +8,32 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Class TaskInformationDTO
+ *
+ * @package App\Projects\Infrastructure\Service\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskInformationDTO
 {
     public function __construct(
-        #[OA\Property(
-            oneOf: [new OA\Schema(
-                ref: '#components/schemas/taskModel/properties/name'
-            )]
-        )]
+
         #[Groups(['create', 'update'])]
         #[Assert\NotBlank]
         public string $name = '',
-        #[OA\Property(
-            oneOf: [new OA\Schema(
-                ref: '#components/schemas/taskModel/properties/brief'
-            )]
-        )]
+
         #[Groups(['create', 'update'])]
         public string $brief = '',
-        #[OA\Property(
-            oneOf: [new OA\Schema(
-                ref: '#components/schemas/taskModel/properties/description'
-            )]
-        )]
+
         #[Groups(['create', 'update'])]
         public string $description = '',
-        #[OA\Property(
-            oneOf: [new OA\Schema(
-                ref: '#components/schemas/taskModel/properties/startDate'
-            )]
-        )]
+
         #[Groups(['create', 'update'])]
         public string $startDate = '',
-        #[OA\Property(
-            oneOf: [new OA\Schema(
-                ref: '#components/schemas/taskModel/properties/finishDate'
-            )]
-        )]
+
         #[Assert\NotBlank]
         public string $finishDate = '',
-        #[OA\Property(
-            oneOf: [new OA\Schema(
-                ref: '#components/schemas/version/properties/version'
-            )]
-        )]
+
         #[Groups(['update'])]
         #[Assert\NotBlank]
         public string $version = ''

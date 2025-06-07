@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Service\DTO;
 
+/**
+ * Class ExceptionDTO
+ *
+ * @package App\Shared\Infrastructure\Service\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ExceptionDTO
 {
     public function __construct(
