@@ -45,7 +45,7 @@ final readonly class ProjectProjectionController
     }
 
     #[Route('/', name: 'getAll', methods: ['GET'])]
-    public function __invoke(SymfonyUser $user, RequestCriteriaDTO $criteria): JsonResponse
+    public function __invoke(RequestCriteriaDTO $criteria, SymfonyUser $user): JsonResponse
     {
         /** @var Pagination $pagination */
         $pagination = $this->queryBus->dispatch(
