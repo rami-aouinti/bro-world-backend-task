@@ -21,12 +21,7 @@ final readonly class ProjectListResponseDTO
     public string $name;
 
     public string $finishDate;
-    #[OA\Property(
-        description: 'Project owner ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
+
     public string $ownerId;
 
     public string $ownerFullName;
@@ -38,11 +33,7 @@ final readonly class ProjectListResponseDTO
     public int $participantsCount;
 
     public int $pendingRequestsCount;
-    #[OA\Property(
-        description: 'Is current user project owner?',
-        type: 'bool',
-        example: true
-    )]
+
     public bool $isOwner;
 
     public bool $isInvolved;
