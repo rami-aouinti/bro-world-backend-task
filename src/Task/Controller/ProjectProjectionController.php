@@ -36,6 +36,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  */
 #[AsController]
 #[Route('/api/projects', name: 'project.')]
+#[IsGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)]
 final readonly class ProjectProjectionController
 {
     public function __construct(
@@ -45,7 +46,7 @@ final readonly class ProjectProjectionController
     }
 
     #[Route('/', name: 'getAll', methods: ['GET'])]
-    public function getAll(SymfonyUser $user, RequestCriteriaDTO $criteria): JsonResponse
+    public function __invoke(SymfonyUser $user, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
         $pagination = $this->queryBus->dispatch(

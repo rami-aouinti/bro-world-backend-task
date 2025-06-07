@@ -31,6 +31,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  */
 #[AsController]
 #[Route('/api/users', name: 'user.')]
+#[IsGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)]
 final readonly class UserProjectionController
 {
     public function __construct(

@@ -29,6 +29,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  */
 #[AsController]
 #[Route('/api/tasks', name: 'task.')]
+#[IsGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)]
 final readonly class TaskProjectionController
 {
     public function __construct(
