@@ -14,6 +14,7 @@ use App\Shared\Infrastructure\Criteria\RequestCriteriaDTO;
 use App\Shared\Infrastructure\Paginator\PaginationResponseDTO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -35,7 +36,9 @@ final readonly class GetProjectsController
     }
 
     #[Route('/', name: 'getAll', methods: ['GET'])]
-    public function __invoke(RequestCriteriaDTO $criteria, SymfonyUser $user): JsonResponse
+    public function __invoke(
+        #[MapRequestPayload] RequestCriteriaDTO $criteria,
+        SymfonyUser $user): JsonResponse
     {
         /** @var Pagination $pagination */
         $pagination = $this->queryBus->dispatch(
