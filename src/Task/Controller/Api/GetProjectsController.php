@@ -33,7 +33,7 @@ final readonly class GetProjectsController
     }
 
     #[Route('/', name: 'getAll', methods: ['GET'])]
-    public function __invoke(SymfonyUser $user, RequestCriteriaDTO $criteria): JsonResponse
+    public function get(RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
         $pagination = $this->queryBus->dispatch(

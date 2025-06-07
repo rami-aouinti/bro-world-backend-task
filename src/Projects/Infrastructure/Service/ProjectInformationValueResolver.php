@@ -13,7 +13,7 @@ use App\Shared\Infrastructure\Service\ValueResolver;
  * @package App\Projects\Infrastructure\Service
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-final class ProjectInformationValueResolver
+final class ProjectInformationValueResolver extends ValueResolver
 {
     protected function supportClass(): string
     {
