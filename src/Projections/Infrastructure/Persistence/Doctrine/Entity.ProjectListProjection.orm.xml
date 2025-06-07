@@ -6,10 +6,10 @@
     <entity name="App\Projections\Domain\Entity\ProjectListProjection" table="project_list_projections">
         <id name="id" length="36" />
         <id name="userId" column="user_id" length="36" />
-        <field name="name" length="4000" />
+        <field name="name" length="255" />
         <field name="finishDate" column="finish_date" type="tm_datetime" />
         <field name="ownerId" column="owner_id" length="36" />
-        <field name="ownerFullName" column="owner_full_name" length="4000" />
+        <field name="ownerFullName" column="owner_full_name" length="255" />
         <field name="status" type="integer" />
         <field name="isInvolved" column="is_involved" type="boolean" />
         <field name="tasksCount" column="tasks_count" type="integer" />

@@ -7,7 +7,17 @@ namespace App\Shared\Domain\ValueObject;
 use App\Shared\Domain\Equatable;
 use App\Shared\Domain\Exception\InvalidArgumentException;
 
-abstract class StringValueObject implements \Stringable, Equatable
+use Stringable;
+
+use function sprintf;
+
+/**
+ * Class StringValueObject
+ *
+ * @package App\Shared\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
+abstract class StringValueObject implements Stringable, Equatable
 {
     public function __construct(public readonly string $value)
     {
@@ -29,14 +39,16 @@ abstract class StringValueObject implements \Stringable, Equatable
     protected function ensureValidMaxLength(string $attributeName, int $maxLength): void
     {
         if (mb_strlen($this->value) > $maxLength) {
-            throw new InvalidArgumentException(sprintf('"%s" should contain at most %s characters.', $attributeName, $maxLength));
+            throw new InvalidArgumentException(
+                sprintf('"%s" should contain at most %s characters.', $attributeName, $maxLength));
         }
     }
 
     protected function ensureValidMinLength(string $attributeName, int $minLength): void
     {
         if (mb_strlen($this->value) < $minLength) {
-            throw new InvalidArgumentException(sprintf('"%s" should contain at least %s characters.', $attributeName, $minLength));
+            throw new InvalidArgumentException(
+                sprintf('"%s" should contain at least %s characters.', $attributeName, $minLength));
         }
     }
 

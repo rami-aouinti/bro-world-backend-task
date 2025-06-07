@@ -7,6 +7,12 @@ namespace App\Shared\Infrastructure\Service;
 use App\Shared\Domain\Event\DomainEventInterface;
 use App\Shared\Domain\Service\DomainEventFactoryInterface;
 
+/**
+ * Class DomainEventFactory
+ *
+ * @package App\Shared\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class DomainEventFactory implements DomainEventFactoryInterface
 {
     public function __construct(

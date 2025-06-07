@@ -154,9 +154,3 @@ services:
 networks:
     symfony:
         name: symfony
-
-volumes:
-###> symfony/mercure-bundle ###
-  mercure_data:
-  mercure_config:
-###< symfony/mercure-bundle ###

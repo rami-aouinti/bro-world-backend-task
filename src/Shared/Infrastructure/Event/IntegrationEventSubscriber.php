@@ -8,6 +8,12 @@ use App\Shared\Application\Bus\Event\DomainEventBusInterface;
 use App\Shared\Application\Bus\Event\IntegrationEventSubscriberInterface;
 use App\Shared\Domain\Service\DomainEventFactoryInterface;
 
+/**
+ * Class IntegrationEventSubscriber
+ *
+ * @package App\Shared\Infrastructure\Event
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class IntegrationEventSubscriber implements IntegrationEventSubscriberInterface
 {
     public function __construct(

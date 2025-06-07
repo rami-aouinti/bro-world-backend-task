@@ -9,9 +9,17 @@ use App\Shared\Application\Criteria\QueryCriteriaFilterDTO;
 use App\Shared\Application\Paginator\Pagination;
 use App\Shared\Domain\Criteria\OperatorEnum;
 
+use function count;
+
+/**
+ * Class QueryCriteriaFromRequestConverter
+ *
+ * @package App\Shared\Infrastructure\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class QueryCriteriaFromRequestConverter implements QueryCriteriaFromRequestConverterInterface
 {
-    public const DEFAULT_OPERATOR = OperatorEnum::Equal->value;
+    public const string DEFAULT_OPERATOR = OperatorEnum::Equal->value;
 
     public function convert(RequestCriteriaDTO $dto): QueryCriteriaDTO
     {
@@ -30,7 +38,7 @@ final class QueryCriteriaFromRequestConverter implements QueryCriteriaFromReques
         $orders = [];
         foreach ($dto->orders as $orderMetadata) {
             $first = $orderMetadata[0];
-            $isAsc = '-' === $first;
+            $isAsc = $first === '-';
             $property = ltrim($orderMetadata, '-+');
             $orders[$property] = $isAsc;
         }

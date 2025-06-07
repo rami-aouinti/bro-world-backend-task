@@ -7,6 +7,12 @@ namespace App\Shared\Infrastructure\Event;
 use App\Shared\Application\Bus\Event\IntegrationEventInterface;
 use App\Shared\Domain\Event\DomainEventInterface;
 
+/**
+ * Class IntegrationEvent
+ *
+ * @package App\Shared\Infrastructure\Event
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class IntegrationEvent implements IntegrationEventInterface
 {
     private string $aggregateId;

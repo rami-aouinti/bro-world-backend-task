@@ -6,7 +6,7 @@ namespace App\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\Exception\UserIsNotTaskOwnerException;
 use App\Shared\Domain\Equatable;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
 final readonly class TaskOwner implements Equatable
 {

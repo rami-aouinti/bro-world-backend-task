@@ -12,7 +12,14 @@ use App\Shared\Application\OptimisticLock\OptimisticLockManagerInterface;
 use App\Shared\Application\Service\UuidGeneratorInterface;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Exception\OptimisticLockException;
+use Doctrine\ORM\PessimisticLockException;
 
+/**
+ * Class OptimisticLockManager
+ *
+ * @package App\Shared\Infrastructure\OptimisticLock
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class OptimisticLockManager implements OptimisticLockManagerInterface
 {
     public function __construct(
@@ -22,8 +29,11 @@ final readonly class OptimisticLockManager implements OptimisticLockManagerInter
     }
 
     /**
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\PessimisticLockException
+     * @param AggregateRoot $aggregateRoot
+     * @param int           $expectedVersion
+     *
+     * @throws PessimisticLockException
+     * @return int
      */
     public function lock(AggregateRoot $aggregateRoot, int $expectedVersion): int
     {
@@ -33,7 +43,7 @@ final readonly class OptimisticLockManager implements OptimisticLockManagerInter
         ]);
 
         try {
-            if (null === $lock) {
+            if ($lock === null) {
                 $lock = new OptimisticLock($aggregateRoot::class, $aggregateRoot->getId()->value);
             } else {
                 $this->entityManager->lock($lock, LockMode::OPTIMISTIC, $expectedVersion);

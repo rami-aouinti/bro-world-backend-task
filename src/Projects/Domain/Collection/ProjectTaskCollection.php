@@ -10,7 +10,7 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectTask;
 use App\Projects\Domain\ValueObject\TaskId;
 use App\Shared\Domain\Collection\ManagedCollection;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
 final class ProjectTaskCollection extends ManagedCollection
 {

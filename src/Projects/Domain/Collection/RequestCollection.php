@@ -8,7 +8,7 @@ use App\Projects\Domain\Entity\Request;
 use App\Projects\Domain\Exception\UserAlreadyHasPendingRequestException;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Collection\ManagedCollection;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
 final class RequestCollection extends ManagedCollection
 {

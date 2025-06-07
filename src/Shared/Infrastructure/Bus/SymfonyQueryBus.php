@@ -9,6 +9,12 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use App\Shared\Application\Bus\Query\QueryBusInterface;
 use App\Shared\Application\Bus\Query\QueryInterface;
 
+/**
+ * Class SymfonyQueryBus
+ *
+ * @package App\Shared\Infrastructure\Bus
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class SymfonyQueryBus implements QueryBusInterface
 {
     use HandleTrait;

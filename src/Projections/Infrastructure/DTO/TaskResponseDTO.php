@@ -8,63 +8,30 @@ use OpenApi\Attributes as OA;
 use App\Projections\Domain\DTO\TaskMemento;
 use App\Projections\Domain\Entity\TaskProjection;
 
+/**
+ * Class TaskResponseDTO
+ *
+ * @package App\Projections\Infrastructure\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskResponseDTO
 {
-    #[OA\Property(
-        description: 'Task ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
     public string $id;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/name'
-        )]
-    )]
+
     public string $name;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/brief'
-        )]
-    )]
+
     public string $brief;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/description'
-        )]
-    )]
+
     public string $description;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/finishDate'
-        )]
-    )]
+
     public string $startDate;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/startDate'
-        )]
-    )]
+
     public string $finishDate;
-    #[OA\Property(
-        description: 'Task owner ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
+
     public string $ownerId;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/status'
-        )]
-    )]
+
     public int $status;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/version'
-        )]
-    )]
+
     public ?int $version;
 
     public function __construct(TaskMemento $memento)

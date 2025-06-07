@@ -17,6 +17,14 @@ use App\Shared\Domain\Criteria\LogicalOperatorEnum;
 use App\Shared\Domain\Criteria\Operand;
 use App\Shared\Domain\Criteria\OperatorEnum;
 
+use function is_string;
+
+/**
+ * Class DoctrineExpressionFromCriteriaBuilder
+ *
+ * @package App\Shared\Infrastructure\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class DoctrineExpressionFromCriteriaBuilder implements DoctrineExpressionFromCriteriaBuilderInterface
 {
     public function __construct(
@@ -42,10 +50,10 @@ final readonly class DoctrineExpressionFromCriteriaBuilder implements DoctrineEx
             $builder->addOrderBy($alias.'.'.$order->property, $order->isAsc ? 'ASC' : 'DESC');
         }
 
-        if (null !== $criteria->getOffset()) {
+        if ($criteria->getOffset() !== null) {
             $builder->setFirstResult($criteria->getOffset() >= 0 ? $criteria->getOffset() : 0);
         }
-        if (null !== $criteria->getLimit()) {
+        if ($criteria->getLimit() !== null) {
             $builder->setMaxResults($criteria->getLimit() >= 0 ? $criteria->getLimit() : 0);
         }
 
@@ -76,8 +84,8 @@ final readonly class DoctrineExpressionFromCriteriaBuilder implements DoctrineEx
         }
 
         $condition = match ($operand->operator) {
-            OperatorEnum::Equal => null !== $value ? $expr->eq($property, $paramPlaceholder) : $expr->isNull($property),
-            OperatorEnum::NotEqual => null !== $value ? $expr->neq($property, $paramPlaceholder) : $expr->isNotNull($property),
+            OperatorEnum::Equal => $value !== null ? $expr->eq($property, $paramPlaceholder) : $expr->isNull($property),
+            OperatorEnum::NotEqual => $value !== null ? $expr->neq($property, $paramPlaceholder) : $expr->isNotNull($property),
             OperatorEnum::Greater => $expr->gt($property, $paramPlaceholder),
             OperatorEnum::GreaterOrEqual => $expr->gte($property, $paramPlaceholder),
             OperatorEnum::Less => $expr->lt($property, $paramPlaceholder),
@@ -92,7 +100,7 @@ final readonly class DoctrineExpressionFromCriteriaBuilder implements DoctrineEx
         } else {
             $builder->orWhere($condition);
         }
-        if (!is_string($condition) || null !== $value) {
+        if (!is_string($condition) || $value !== null) {
             $builder->setParameter($paramPlaceholder, $value);
         }
     }

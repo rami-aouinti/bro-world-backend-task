@@ -38,7 +38,7 @@ use App\Projects\Domain\ValueObject\TaskInformation;
 use App\Projects\Domain\ValueObject\TaskOwner;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Equatable;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class Project
@@ -149,7 +149,7 @@ final class Project extends AggregateRoot
         $pendingRequest = $this->requests->findFirst(function (string $key, Request $request) use ($owner) {
             return $request->isPendingForUser($owner->id);
         });
-        if (null !== $pendingRequest) {
+        if ($pendingRequest !== null) {
             $this->rejectRequest($pendingRequest->getId(), $currentUserId);
         }
 

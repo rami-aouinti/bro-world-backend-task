@@ -10,7 +10,7 @@ use App\Projects\Domain\Repository\ProjectRepositoryInterface;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Application\Bus\Command\CommandHandlerInterface;
 use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
-use App\Shared\Application\Service\AuthenticatorServiceInterface;
+use App\General\Application\Service\AuthenticatorServiceInterface;
 
 final readonly class LeaveCommandHandler implements CommandHandlerInterface
 {

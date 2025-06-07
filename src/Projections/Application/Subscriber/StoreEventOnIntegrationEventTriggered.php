@@ -12,6 +12,12 @@ use App\Shared\Application\Bus\Event\IntegrationEventSubscriberInterface;
 use App\Shared\Application\Service\UuidGeneratorInterface;
 use App\Shared\Domain\Service\DomainEventFactoryInterface;
 
+/**
+ * Class StoreEventOnIntegrationEventTriggered
+ *
+ * @package App\Projections\Application\Subscriber
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class StoreEventOnIntegrationEventTriggered implements IntegrationEventSubscriberInterface
 {
     public function __construct(

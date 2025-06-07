@@ -11,6 +11,12 @@ use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
+/**
+ * Class SimulateMicroserviceMiddleware
+ *
+ * @package App\Shared\Infrastructure\Bus
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class SimulateMicroserviceMiddleware implements MiddlewareInterface
 {
     public function __construct(private HandlersLocatorInterface $handlersLocator)
@@ -33,7 +39,7 @@ final readonly class SimulateMicroserviceMiddleware implements MiddlewareInterfa
         $messageDomain = explode('\\', $message::class)[1] ?? null;
         $handlerDomain = explode('\\', $handler->getName())[1] ?? null;
 
-        if (null === $messageDomain || null === $handlerDomain) {
+        if ($messageDomain === null || $handlerDomain === null) {
             return false;
         }
 

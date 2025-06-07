@@ -8,38 +8,22 @@ use OpenApi\Attributes as OA;
 use App\Projections\Domain\DTO\UserMemento;
 use App\Projections\Domain\Entity\UserProjection;
 
+/**
+ * Class UserResponseDTO
+ *
+ * @package App\Projections\Infrastructure\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class UserResponseDTO
 {
-    #[OA\Property(
-        description: 'User ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
     public string $id;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/userModel/properties/email'
-        )]
-    )]
+
     public string $email;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/userModel/properties/firstname'
-        )]
-    )]
+
     public string $firstname;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/userModel/properties/lastname'
-        )]
-    )]
+
     public string $lastname;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/version'
-        )]
-    )]
+
     public ?int $version;
 
     public function __construct(UserMemento $memento)

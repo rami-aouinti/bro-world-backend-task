@@ -6,8 +6,17 @@ namespace App\Shared\Domain\ValueObject;
 
 use App\Shared\Domain\Equatable;
 use App\Shared\Domain\Exception\InvalidArgumentException;
+use Stringable;
 
-class Uuid implements \Stringable, Equatable
+use function sprintf;
+
+/**
+ * Class Uuid
+ *
+ * @package App\Shared\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
+class Uuid implements Stringable, Equatable
 {
     public function __construct(public readonly string $value)
     {

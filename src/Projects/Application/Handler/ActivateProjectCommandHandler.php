@@ -10,8 +10,14 @@ use App\Projects\Domain\Repository\ProjectRepositoryInterface;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Application\Bus\Command\CommandHandlerInterface;
 use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
-use App\Shared\Application\Service\AuthenticatorServiceInterface;
+use App\General\Application\Service\AuthenticatorServiceInterface;
 
+/**
+ * Class ActivateProjectCommandHandler
+ *
+ * @package App\Projects\Application\Handler
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ActivateProjectCommandHandler implements CommandHandlerInterface
 {
     public function __construct(

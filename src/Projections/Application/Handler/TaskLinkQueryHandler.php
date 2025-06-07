@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Handler;
 
+use App\General\Infrastructure\ValueObject\SymfonyUser;
 use App\Projections\Application\Query\TaskLinkQuery;
-use App\Projections\Application\Service\CurrentUserExtractorInterface;
 use App\Projections\Domain\Exception\InsufficientPermissionsException;
 use App\Projections\Domain\Exception\ObjectDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
@@ -20,6 +20,14 @@ use App\Shared\Domain\Criteria\Operand;
 use App\Shared\Domain\Criteria\OperatorEnum;
 use App\Shared\Domain\Criteria\Order;
 
+use function sprintf;
+
+/**
+ * Class TaskLinkQueryHandler
+ *
+ * @package App\Projections\Application\Handler
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskLinkQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
@@ -27,23 +35,21 @@ final readonly class TaskLinkQueryHandler implements QueryHandlerInterface
         private TaskProjectionRepositoryInterface $taskRepository,
         private ProjectProjectionRepositoryInterface $projectRepository,
         private CriteriaFromQueryBuilderInterface $criteriaBuilder,
-        private CurrentUserExtractorInterface $userExtractor,
         private PaginatorInterface $paginator
     ) {
     }
 
-    public function __invoke(TaskLinkQuery $query): Pagination
+    public function __invoke(SymfonyUser $user, TaskLinkQuery $query): Pagination
     {
-        $user = $this->userExtractor->extract();
-
         $task = $this->taskRepository->findById($query->taskId);
-        if (null === $task) {
+        if ($task === null) {
             throw new ObjectDoesNotExistException(sprintf('Task "%s" does not exist.', $query->taskId));
         }
 
-        $project = $this->projectRepository->findByIdAndUserId($task->getProjectId(), $user->getId());
-        if (null === $project) {
-            throw new InsufficientPermissionsException(sprintf('Insufficient permissions to view the project "%s".', $task->getProjectId()));
+        $project = $this->projectRepository->findByIdAndUserId($task->getProjectId(), $user->getUserIdentifier());
+        if ($project === null) {
+            throw new InsufficientPermissionsException(
+                sprintf('Insufficient permissions to view the project "%s".', $task->getProjectId()));
         }
 
         $criteria = new Criteria();

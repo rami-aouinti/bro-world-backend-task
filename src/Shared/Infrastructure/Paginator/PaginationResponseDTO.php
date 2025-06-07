@@ -6,7 +6,17 @@ namespace App\Shared\Infrastructure\Paginator;
 
 use App\Shared\Application\Paginator\Pagination;
 
-final readonly class PaginationResponseDTO implements \JsonSerializable
+use JsonSerializable;
+
+use function call_user_func;
+
+/**
+ * Class PaginationResponseDTO
+ *
+ * @package App\Shared\Infrastructure\Paginator
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
+final readonly class PaginationResponseDTO implements JsonSerializable
 {
     public function __construct(
         public array $items,
@@ -20,7 +30,7 @@ final readonly class PaginationResponseDTO implements \JsonSerializable
     public static function createFromPagination(Pagination $pagination, callable $itemsCallback = null): self
     {
         return new self(
-            null === $itemsCallback ? $pagination->getItems() : call_user_func($itemsCallback, $pagination->getItems()),
+            $itemsCallback === null ? $pagination->getItems() : $itemsCallback($pagination->getItems()),
             $pagination->getTotalPageCount(),
             $pagination->getCurrentPage(),
             $pagination->getNextPage(),

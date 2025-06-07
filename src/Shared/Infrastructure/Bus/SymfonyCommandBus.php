@@ -9,6 +9,12 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use App\Shared\Application\Bus\Command\CommandBusInterface;
 use App\Shared\Application\Bus\Command\CommandInterface;
 
+/**
+ * Class SymfonyCommandBus
+ *
+ * @package App\Shared\Infrastructure\Bus
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class SymfonyCommandBus implements CommandBusInterface
 {
     use HandleTrait;

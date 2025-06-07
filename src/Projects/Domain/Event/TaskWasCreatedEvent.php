@@ -6,6 +6,12 @@ namespace App\Projects\Domain\Event;
 
 use App\Shared\Domain\Event\DomainEvent;
 
+/**
+ * Class TaskWasCreatedEvent
+ *
+ * @package App\Projects\Domain\Event
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskWasCreatedEvent extends DomainEvent
 {
     public function __construct(

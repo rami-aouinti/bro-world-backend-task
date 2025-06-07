@@ -8,58 +8,28 @@ use OpenApi\Attributes as OA;
 use App\Projections\Domain\DTO\TaskListMemento;
 use App\Projections\Domain\Entity\TaskListProjection;
 
+/**
+ * Class TaskListResponseDTO
+ *
+ * @package App\Projections\Infrastructure\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskListResponseDTO
 {
-    #[OA\Property(
-        description: 'Task ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
     public string $id;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/name'
-        )]
-    )]
+
     public string $name;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/startDate'
-        )]
-    )]
+
     public string $startDate;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/finishDate'
-        )]
-    )]
+
     public string $finishDate;
-    #[OA\Property(
-        description: 'Task owner ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
+
     public string $ownerId;
-    #[OA\Property(
-        description: 'Task owner full name',
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/userModel/properties/fullName'
-        )]
-    )]
+
     public string $ownerFullName;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/status'
-        )]
-    )]
+
     public int $status;
-    #[OA\Property(
-        description: 'Count of task links',
-        type: 'int',
-        example: 10
-    )]
+
     public int $linksCount;
 
     public function __construct(TaskListMemento $memento)

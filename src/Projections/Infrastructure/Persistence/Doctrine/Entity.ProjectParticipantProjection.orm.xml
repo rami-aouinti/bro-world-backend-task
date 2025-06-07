@@ -6,9 +6,9 @@
     <entity name="App\Projections\Domain\Entity\ProjectParticipantProjection" table="project_participant_projections">
         <id name="userId" column="user_id" length="36" />
         <id name="projectId" column="project_id" length="36" />
-        <field name="userEmail" column="user_email" length="4000" />
-        <field name="userFirstname" column="user_firstname" length="4000" />
-        <field name="userLastname" column="user_lastname" length="4000" />
+        <field name="userEmail" column="user_email" length="255" />
+        <field name="userFirstname" column="user_firstname" length="255" />
+        <field name="userLastname" column="user_lastname" length="255" />
         <field name="tasksCount" column="tasks_count" type="integer" />
     </entity>
 </doctrine-mapping>

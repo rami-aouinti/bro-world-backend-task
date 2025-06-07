@@ -6,8 +6,8 @@
     <entity name="App\Projections\Domain\Entity\ProjectProjection" table="project_projections">
         <id name="id" length="36" />
         <id name="userId" column="user_id" length="36" />
-        <field name="name" length="4000" />
-        <field name="description" length="4000" />
+        <field name="name" length="255" />
+        <field name="description" length="255" />
         <field name="finishDate" column="finish_date" type="tm_datetime" />
         <field name="ownerId" column="owner_id" length="36" />
         <field name="status" type="integer" />

@@ -11,7 +11,7 @@ use App\Projects\Domain\ValueObject\RequestId;
 use App\Projects\Domain\ValueObject\RequestStatus;
 use App\Shared\Domain\Equatable;
 use App\Shared\Domain\Hashable;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class Request

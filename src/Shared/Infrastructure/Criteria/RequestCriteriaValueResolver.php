@@ -8,6 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
+/**
+ * Class RequestCriteriaValueResolver
+ *
+ * @package App\Shared\Infrastructure\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class RequestCriteriaValueResolver implements ValueResolverInterface
 {
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
@@ -21,6 +27,6 @@ final class RequestCriteriaValueResolver implements ValueResolverInterface
         $orders = $request->query->all('order');
         $page = $request->query->get('page');
 
-        yield new RequestCriteriaDTO($filters, $orders, null !== $page ? (int) $page : null);
+        yield new RequestCriteriaDTO($filters, $orders, $page !== null ? (int) $page : null);
     }
 }

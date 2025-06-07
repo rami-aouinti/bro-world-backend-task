@@ -6,9 +6,15 @@ namespace App\Shared\Application\Paginator;
 
 use App\Shared\Domain\Exception\PageNotExistException;
 
+/**
+ * Class Pagination
+ *
+ * @package App\Shared\Application\Paginator
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class Pagination
 {
-    public const PAGE_SIZE = 10;
+    public const int PAGE_SIZE = 10;
 
     public function __construct(
         private readonly array $items,
@@ -26,8 +32,8 @@ final class Pagination
 
     public function getTotalPageCount(): int
     {
-        if (null === $this->limit) {
-            return 0 === $this->totalCount ? 0 : 1;
+        if ($this->limit === null) {
+            return $this->totalCount === 0 ? 0 : 1;
         }
 
         return (int) ceil($this->totalCount / $this->limit);
@@ -35,7 +41,7 @@ final class Pagination
 
     public function getCurrentPage(): int
     {
-        return null === $this->limit ? 1 : ((int) floor((int) $this->offset / $this->limit)) + 1;
+        return $this->limit === null ? 1 : ((int) floor((int) $this->offset / $this->limit)) + 1;
     }
 
     public function getNextPage(): ?int
@@ -54,7 +60,7 @@ final class Pagination
 
     private function ensureIsValidCurrentPage(): void
     {
-        if (0 === $this->getTotalPageCount() && 1 === $this->getCurrentPage()) {
+        if ($this->getTotalPageCount() === 0 && $this->getCurrentPage() === 1) {
             return;
         }
         if ($this->getCurrentPage() > $this->getTotalPageCount() || $this->getCurrentPage() < 1) {

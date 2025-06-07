@@ -21,7 +21,7 @@ use App\Projects\Domain\ValueObject\TaskStatus;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Equatable;
 use App\Shared\Domain\ValueObject\DateTime;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class Task

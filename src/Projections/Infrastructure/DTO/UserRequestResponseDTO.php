@@ -8,39 +8,22 @@ use OpenApi\Attributes as OA;
 use App\Projections\Domain\DTO\UserRequestMemento;
 use App\Projections\Domain\Entity\UserRequestProjection;
 
+/**
+ * Class UserRequestResponseDTO
+ *
+ * @package App\Projections\Infrastructure\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class UserRequestResponseDTO
 {
-    #[OA\Property(
-        description: 'Request ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
     public string $id;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/requestModel/properties/status'
-        )]
-    )]
+
     public int $status;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/requestModel/properties/changeDate'
-        )]
-    )]
+
     public string $changeDate;
-    #[OA\Property(
-        description: 'Project ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
+
     public string $projectId;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/projectModel/properties/name'
-        )]
-    )]
+
     public string $projectName;
 
     public function __construct(UserRequestMemento $memento)

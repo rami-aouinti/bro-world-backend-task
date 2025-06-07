@@ -8,34 +8,21 @@ use OpenApi\Attributes as OA;
 use App\Projections\Domain\DTO\TaskLinkMemento;
 use App\Projections\Domain\Entity\TaskLinkProjection;
 
+/**
+ * Class TaskLinkResponseDTO
+ *
+ * @package App\Projections\Infrastructure\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskLinkResponseDTO
 {
-    #[OA\Property(
-        description: 'TaskId ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
+
     public string $taskId;
-    #[OA\Property(
-        description: 'Linked task ID',
-        oneOf: [new OA\Schema(
-            ref: '#/components/schemas/objectId/properties/id'
-        )]
-    )]
+
     public string $linkedTaskId;
-    #[OA\Property(
-        description: 'Linked task name',
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/name'
-        )]
-    )]
+
     public string $linkedTaskName;
-    #[OA\Property(
-        oneOf: [new OA\Schema(
-            ref: '#components/schemas/taskModel/properties/status'
-        )]
-    )]
+
     public int $linkedTaskStatus;
 
     public function __construct(TaskLinkMemento $memento)

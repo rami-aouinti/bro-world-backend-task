@@ -11,7 +11,7 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\TaskId;
 use App\Shared\Application\Bus\Event\DomainEventSubscriberInterface;
 use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
 final readonly class CreateProjectTaskOnTaskCreated implements DomainEventSubscriberInterface
 {

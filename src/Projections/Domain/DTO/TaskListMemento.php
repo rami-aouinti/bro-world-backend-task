@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\DTO;
 
+/**
+ * Class TaskListMemento
+ *
+ * @package App\Projections\Domain\DTO
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskListMemento
 {
     public function __construct(

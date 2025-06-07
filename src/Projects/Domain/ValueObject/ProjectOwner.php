@@ -7,8 +7,14 @@ namespace App\Projects\Domain\ValueObject;
 use App\Projects\Domain\Exception\UserIsAlreadyProjectOwnerException;
 use App\Projects\Domain\Exception\UserIsNotProjectOwnerException;
 use App\Shared\Domain\Equatable;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Domain\ValueObject\UserId;
 
+/**
+ * Class ProjectOwner
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ProjectOwner implements Equatable
 {
     public function __construct(

@@ -10,8 +10,8 @@ use App\Projects\Domain\Repository\ProjectRepositoryInterface;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Application\Bus\Command\CommandHandlerInterface;
 use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
-use App\Shared\Application\Service\AuthenticatorServiceInterface;
-use App\Shared\Domain\ValueObject\UserId;
+use App\General\Application\Service\AuthenticatorServiceInterface;
+use App\General\Domain\ValueObject\UserId;
 
 final readonly class RemoveParticipantCommandHandler implements CommandHandlerInterface
 {

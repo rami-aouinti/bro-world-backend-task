@@ -7,6 +7,12 @@ namespace App\Projects\Infrastructure\Service;
 use App\Projects\Infrastructure\Service\DTO\ProjectInformationDTO;
 use App\Shared\Infrastructure\Service\ValueResolver;
 
+/**
+ * Class ProjectInformationValueResolver
+ *
+ * @package App\Projects\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectInformationValueResolver extends ValueResolver
 {
     protected function supportClass(): string

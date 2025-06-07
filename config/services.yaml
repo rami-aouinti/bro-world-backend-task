@@ -142,10 +142,6 @@ services:
 
     Symfony\Component\PasswordHasher\PasswordHasherInterface: '@Symfony\Component\PasswordHasher\Hasher\Pbkdf2PasswordHasher'
 
-    App\Shared\Infrastructure\Service\LexikJwtAuthenticatorService:
-        arguments:
-            $path: '^/api/(?!.*(security)|(test)|(doc)).*$'
-
     App\Shared\Infrastructure\Service\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onException }

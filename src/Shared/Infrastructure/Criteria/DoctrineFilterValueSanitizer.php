@@ -25,6 +25,16 @@ use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Types\TimeType;
 use Doctrine\DBAL\Types\Type;
 
+use LogicException;
+
+use function sprintf;
+
+/**
+ * Class DoctrineFilterValueSanitizer
+ *
+ * @package App\Shared\Infrastructure\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class DoctrineFilterValueSanitizer implements DoctrineFilterValueSanitizerInterface
 {
     public function sanitize(Type $type, mixed $value): mixed
@@ -38,7 +48,7 @@ final class DoctrineFilterValueSanitizer implements DoctrineFilterValueSanitizer
             case $type instanceof DateTimeTzType:
             case $type instanceof TimeType:
             case $type instanceof DateType:
-                return false !== strtotime((string) $value) ? $value : null;
+                return strtotime((string) $value) !== false ? $value : null;
             case $type instanceof BooleanType:
                 return (bool) $value;
             case $type instanceof FloatType:
@@ -56,6 +66,6 @@ final class DoctrineFilterValueSanitizer implements DoctrineFilterValueSanitizer
                 return $value;
         }
 
-        throw new \LogicException(sprintf('Unknown db type "%s"', get_class($type)));
+        throw new LogicException(sprintf('Unknown db type "%s"', get_class($type)));
     }
 }

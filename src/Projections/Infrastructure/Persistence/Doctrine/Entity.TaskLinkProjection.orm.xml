@@ -6,7 +6,7 @@
     <entity name="App\Projections\Domain\Entity\TaskLinkProjection" table="task_link_projections">
         <id name="taskId" length="36" />
         <id name="linkedTaskId" length="36" />
-        <field name="linkedTaskName" length="4000" />
+        <field name="linkedTaskName" length="255" />
         <field name="linkedTaskStatus" type="integer" />
     </entity>
 </doctrine-mapping>

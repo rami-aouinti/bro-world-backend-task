@@ -18,6 +18,8 @@ use App\Shared\Application\Paginator\Pagination;
 use App\Shared\Infrastructure\Criteria\QueryCriteriaFromRequestConverterInterface;
 use App\Shared\Infrastructure\Criteria\RequestCriteriaDTO;
 use App\Shared\Infrastructure\Paginator\PaginationResponseDTO;
+use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class TaskProjectionController
@@ -36,29 +38,6 @@ final readonly class TaskProjectionController
     }
 
     #[Route('/{id}/', name: 'get', methods: ['GET'])]
-    #[OA\Get(
-        description: 'Get task info',
-        tags: [
-            'task',
-        ],
-        parameters: [
-            new OA\Parameter(
-                ref: '#/components/parameters/taskId'
-            ),
-        ],
-        responses: [
-            new OA\Response(
-                response: '200',
-                description: 'Task info',
-                content: new OA\JsonContent(
-                    ref: new Model(type: TaskResponseDTO::class)
-                )
-            ),
-            new OA\Response(ref: '#components/responses/generic401', response: '401'),
-            new OA\Response(ref: '#components/responses/generic403', response: '403'),
-            new OA\Response(ref: '#components/responses/generic404', response: '404'),
-        ]
-    )]
     public function get(string $id): JsonResponse
     {
         $task = $this->queryBus->dispatch(new TaskQuery($id));
@@ -67,44 +46,6 @@ final readonly class TaskProjectionController
     }
 
     #[Route('/{id}/links/', name: 'getAllLinks', methods: ['GET'])]
-    #[OA\Get(
-        description: 'Get all task links',
-        tags: [
-            'task',
-        ],
-        parameters: [
-            new OA\Parameter(
-                ref: '#/components/parameters/taskId'
-            ),
-        ],
-        responses: [
-            new OA\Response(
-                response: '200',
-                description: 'List of task links with pagination',
-                content: new OA\JsonContent(
-                    allOf: [
-                        new OA\Schema(
-                            ref: '#components/schemas/pagination'
-                        ),
-                        new OA\Schema(
-                            properties: [
-                                new OA\Property(
-                                    property: 'items',
-                                    type: 'array',
-                                    items: new OA\Items(
-                                        ref: new Model(type: TaskLinkResponseDTO::class)
-                                    )
-                                ),
-                            ]
-                        ),
-                    ]
-                )
-            ),
-            new OA\Response(ref: '#components/responses/generic401', response: '401'),
-            new OA\Response(ref: '#components/responses/generic403', response: '403'),
-            new OA\Response(ref: '#components/responses/generic404', response: '404'),
-        ]
-    )]
     public function getAllLinks(string $id, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */

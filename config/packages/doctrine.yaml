@@ -49,7 +49,7 @@ doctrine:
         enable_lazy_ghost_objects: true
         default_entity_manager: default
         controller_resolver:
-            auto_mapping: false
+            auto_mapping: true
         entity_managers:
             default:
                 naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -58,24 +58,31 @@ doctrine:
                 validate_xml_mapping: true
                 connection: default
                 mappings:
+                    Projects:
+                        type: xml
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Projects/Infrastructure/Persistence/Doctrine'
+                        prefix: 'App\Projects\Domain'
+                        alias: Projects
+                    Projections:
+                        type: xml
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Projections/Infrastructure/Persistence/Doctrine'
+                        prefix: 'App\Projections\Domain'
+                        alias: Projections
+                    Shared:
+                        type: xml
+                        dir: '%kernel.project_dir%/src/Shared/Infrastructure/Persistence/Doctrine'
+                        is_bundle: false
+                        prefix: 'App\Shared'
+                        alias: Shared
                     General:
                         type: attribute
                         is_bundle: false
                         dir: '%kernel.project_dir%/src/General/Domain/Entity'
                         prefix: 'App\General\Domain\Entity'
                         alias: General
-                    Projects:
-                        type: xml
-                        is_bundle: false
-                        dir: '%kernel.project_dir%/src/Projects/Domain/Entity'
-                        prefix: 'App\Projects\Domain\Entity'
-                        alias: Projects
-                    Projections:
-                        type: xml
-                        is_bundle: false
-                        dir: '%kernel.project_dir%/src/Projections/Domain/Entity'
-                        prefix: 'App\Projections\Domain\Entity'
-                        alias: Projections
+
                 dql:
                     datetime_functions:
                         datesub: DoctrineExtensions\Query\Mysql\DateSub

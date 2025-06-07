@@ -6,6 +6,12 @@ namespace App\Shared\Infrastructure\Persistence\Doctrine;
 
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 
+/**
+ * Class CustomPostgreSQLPlatform
+ *
+ * @package App\Shared\Infrastructure\Persistence\Doctrine
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class CustomPostgreSQLPlatform extends PostgreSQLPlatform
 {
     public function getDateTimeTypeDeclarationSQL(array $column): string

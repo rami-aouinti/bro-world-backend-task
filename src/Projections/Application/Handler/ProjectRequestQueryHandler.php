@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Handler;
 
+use App\General\Infrastructure\ValueObject\SymfonyUser;
 use App\Projections\Application\Query\ProjectRequestQuery;
-use App\Projections\Application\Service\CurrentUserExtractorInterface;
 use App\Projections\Domain\Exception\InsufficientPermissionsException;
 use App\Projections\Domain\Exception\ObjectDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
@@ -19,27 +19,32 @@ use App\Shared\Domain\Criteria\Operand;
 use App\Shared\Domain\Criteria\OperatorEnum;
 use App\Shared\Domain\Criteria\Order;
 
+use function sprintf;
+
+/**
+ * Class ProjectRequestQueryHandler
+ *
+ * @package App\Projections\Application\Handler
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ProjectRequestQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private ProjectRequestProjectionRepositoryInterface $repository,
         private ProjectProjectionRepositoryInterface $projectRepository,
         private CriteriaFromQueryBuilderInterface $criteriaBuilder,
-        private CurrentUserExtractorInterface $userExtractor,
         private PaginatorInterface $paginator
     ) {
     }
 
-    public function __invoke(ProjectRequestQuery $query): Pagination
+    public function __invoke(SymfonyUser $user, ProjectRequestQuery $query): Pagination
     {
-        $user = $this->userExtractor->extract();
-
         $project = $this->projectRepository->findById($query->projectId);
-        if (null === $project) {
+        if ($project === null) {
             throw new ObjectDoesNotExistException(sprintf('Project "%s" does not exist.', $query->projectId));
         }
 
-        if (!$project->isUserOwner($user->getId())) {
+        if (!$project->isUserOwner($user->getUserIdentifier())) {
             throw new InsufficientPermissionsException(sprintf('Insufficient permissions to view the project "%s".', $query->projectId));
         }
 
