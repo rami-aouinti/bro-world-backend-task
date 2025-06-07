@@ -27,7 +27,7 @@ final readonly class ProjectQueryHandler implements QueryHandlerInterface
     ) {
     }
 
-    public function __invoke(SymfonyUser $user, ProjectQuery $query): ProjectProjection
+    public function __invoke(ProjectQuery $query, SymfonyUser $user): ProjectProjection
     {
         $projectBydId = $this->repository->findById($query->id);
         if ($projectBydId === null) {

@@ -11,6 +11,7 @@ use App\Shared\Application\Bus\Event\IntegrationEventInterface;
 use App\Shared\Application\Bus\Event\IntegrationEventSubscriberInterface;
 use App\Shared\Application\Service\UuidGeneratorInterface;
 use App\Shared\Domain\Service\DomainEventFactoryInterface;
+use Exception;
 
 /**
  * Class StoreEventOnIntegrationEventTriggered
@@ -30,7 +31,7 @@ final readonly class StoreEventOnIntegrationEventTriggered implements Integratio
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function __invoke(IntegrationEventInterface $integrationEvent): void
     {

@@ -3,5 +3,6 @@ task-controllers:
         path: ../src/Task/Controller/Api/
         namespace: App\Task\Controller\Api
     type: attribute
+    prefix: /api
     defaults:
         _format: json
