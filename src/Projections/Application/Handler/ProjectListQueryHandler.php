@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Handler;
 
-use App\General\Infrastructure\ValueObject\SymfonyUser;
 use App\Projections\Application\Query\ProjectListQuery;
 use App\Projections\Domain\Repository\ProjectListProjectionRepositoryInterface;
 use App\Shared\Application\Bus\Query\QueryHandlerInterface;
@@ -12,8 +11,6 @@ use App\Shared\Application\Criteria\CriteriaFromQueryBuilderInterface;
 use App\Shared\Application\Paginator\Pagination;
 use App\Shared\Application\Paginator\PaginatorInterface;
 use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\Criteria\Operand;
-use App\Shared\Domain\Criteria\OperatorEnum;
 use App\Shared\Domain\Criteria\Order;
 
 /**
@@ -31,11 +28,11 @@ final readonly class ProjectListQueryHandler implements QueryHandlerInterface
     ) {
     }
 
-    public function __invoke(SymfonyUser $user, ProjectListQuery $query): Pagination
+    public function __invoke(ProjectListQuery $query): Pagination
     {
         $criteria = new Criteria();
 
-        $criteria->addOperand(new Operand('userId', OperatorEnum::Equal, $user->getUserIdentifier()))
+        $criteria
             ->addOrder(new Order('finishDate'));
 
         $this->criteriaBuilder->build($criteria, $query->criteria);

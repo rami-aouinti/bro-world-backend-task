@@ -37,7 +37,7 @@ final readonly class ProjectParticipantQueryHandler implements QueryHandlerInter
     ) {
     }
 
-    public function __invoke(SymfonyUser $user, ProjectParticipantQuery $query): Pagination
+    public function __invoke(ProjectParticipantQuery $query, SymfonyUser $user): Pagination
     {
         $projectById = $this->projectRepository->findById($query->projectId);
         if ($projectById === null) {
