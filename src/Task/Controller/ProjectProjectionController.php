@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Task\Controller;
 
+use App\General\Infrastructure\ValueObject\SymfonyUser;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,7 +45,7 @@ final readonly class ProjectProjectionController
     }
 
     #[Route('/', name: 'getAll', methods: ['GET'])]
-    public function getAll(RequestCriteriaDTO $criteria): JsonResponse
+    public function getAll(SymfonyUser $user, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
         $pagination = $this->queryBus->dispatch(
