@@ -1,7 +1,7 @@
 task-controllers:
     resource:
-        path: ../src/Task/Controller/
-        namespace: App\Task\Controller
+        path: ../src/Task/Controller/Api/
+        namespace: App\Task\Controller\Api
     type: attribute
     defaults:
         _format: json
