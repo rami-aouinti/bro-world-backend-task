@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Projects\Application\Subscriber;
 
+use App\General\Domain\ValueObject\DateTime;
+use App\General\Domain\ValueObject\UserId;
 use App\Projects\Application\Service\TaskFinderInterface;
 use App\Projects\Domain\Event\ProjectTaskFinishDateWasChangedEvent;
 use App\Projects\Domain\Repository\TaskRepositoryInterface;
 use App\Projects\Domain\ValueObject\TaskId;
-use App\Shared\Application\Bus\Event\DomainEventSubscriberInterface;
-use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
-use App\Shared\Domain\ValueObject\DateTime;
-use App\General\Domain\ValueObject\UserId;
+use App\General\Application\Bus\Event\DomainEventSubscriberInterface;
+use App\General\Application\Bus\Event\IntegrationEventBusInterface;
 
 /**
  * Class LimitTaskDatesOnProjectTaskFinishDateChanged

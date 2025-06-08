@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\General\Application\Compiler\StopwatchCompilerPass;
-use App\Shared\Infrastructure\Service\ArrayArgumentLoaderCompilerPass;
+use App\General\Infrastructure\Service\ArrayArgumentLoaderCompilerPass;
 use Override;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

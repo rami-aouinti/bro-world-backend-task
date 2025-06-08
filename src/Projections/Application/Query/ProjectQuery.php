@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Query;
 
-use App\Shared\Application\Bus\Query\QueryInterface;
+use App\General\Application\Bus\Query\QueryInterface;
 
 /**
  * Class ProjectQuery

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Entity;
 
+use App\General\Domain\Aggregate\AggregateRoot;
+use App\General\Domain\Equatable;
+use App\General\Domain\ValueObject\DateTime;
+use App\General\Domain\ValueObject\UserId;
 use App\Projects\Domain\Collection\TaskLinkCollection;
 use App\Projects\Domain\Event\TaskInformationWasChangedEvent;
 use App\Projects\Domain\Event\TaskLinkWasCreated;
@@ -18,10 +22,6 @@ use App\Projects\Domain\ValueObject\TaskInformation;
 use App\Projects\Domain\ValueObject\TaskLink;
 use App\Projects\Domain\ValueObject\TaskOwner;
 use App\Projects\Domain\ValueObject\TaskStatus;
-use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\Equatable;
-use App\Shared\Domain\ValueObject\DateTime;
-use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class Task

@@ -8,6 +8,8 @@ use App\General\Domain\Equatable;
 use App\General\Domain\Exception\InvalidArgumentException;
 use Stringable;
 
+use function sprintf;
+
 /**
  * Class Uuid
  *
@@ -28,7 +30,7 @@ class Uuid implements Stringable, Equatable
 
     public function equals(Equatable $other): bool
     {
-        return $this->value === $other->value;
+        return $other instanceof static && $this->value === $other->value;
     }
 
     private function ensureIsValidUuid(string $value): void

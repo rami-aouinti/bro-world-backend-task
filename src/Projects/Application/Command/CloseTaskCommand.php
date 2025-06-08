@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projects\Application\Command;
 
-use App\Shared\Application\Bus\Command\CommandInterface;
+use App\General\Application\Bus\Command\CommandInterface;
 
 /**
  * Class CloseTaskCommand

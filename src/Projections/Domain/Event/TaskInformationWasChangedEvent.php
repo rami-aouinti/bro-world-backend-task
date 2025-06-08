@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Event;
 
-use App\Shared\Domain\Event\DomainEvent;
+use App\General\Domain\Event\DomainEvent;
 
 final class TaskInformationWasChangedEvent extends DomainEvent
 {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Service\Projector;
 
+use App\General\Domain\Hashable;
 use App\Projections\Domain\Entity\ProjectParticipantProjection;
 use App\Projections\Domain\Entity\UserProjection;
 use App\Projections\Domain\Event\ProjectParticipantWasAddedEvent;
@@ -15,7 +16,6 @@ use App\Projections\Domain\Repository\ProjectParticipantProjectionRepositoryInte
 use App\Projections\Domain\Repository\TaskListProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\UserProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
-use App\Shared\Domain\Hashable;
 
 /**
  * Class ProjectParticipantProjector

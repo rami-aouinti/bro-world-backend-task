@@ -9,6 +9,12 @@ use Doctrine\Persistence\ObjectRepository;
 use App\Projections\Domain\Entity\ProjectProjection;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 
+/**
+ * Class DoctrineProjectProjectionRepository
+ *
+ * @package App\Projections\Infrastructure\Repository
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class DoctrineProjectProjectionRepository implements ProjectProjectionRepositoryInterface
 {
     public function __construct(
@@ -35,10 +41,7 @@ final readonly class DoctrineProjectProjectionRepository implements ProjectProje
 
     public function findByIdAndUserId(string $id, string $userId): ?ProjectProjection
     {
-        return $this->getRepository()->findOneBy([
-            'id' => $id,
-            'userId' => $userId,
-        ]);
+        return $this->getRepository()->findOneBy(compact('id', 'userId'));
     }
 
     public function save(ProjectProjection $projection): void

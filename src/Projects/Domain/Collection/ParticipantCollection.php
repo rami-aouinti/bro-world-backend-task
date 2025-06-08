@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Collection;
 
+use App\General\Domain\Collection\ManagedCollection;
+use App\General\Domain\ValueObject\UserId;
 use App\Projects\Domain\Exception\ProjectParticipantDoesNotExistException;
 use App\Projects\Domain\Exception\UserIsAlreadyProjectParticipantException;
 use App\Projects\Domain\ValueObject\Participant;
-use App\Shared\Domain\Collection\ManagedCollection;
-use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class ParticipantCollection

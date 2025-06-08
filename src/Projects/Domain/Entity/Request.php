@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Entity;
 
+use App\General\Domain\Equatable;
+use App\General\Domain\Hashable;
+use App\General\Domain\ValueObject\UserId;
 use App\Projects\Domain\ValueObject\PendingRequestStatus;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\RequestChangeDate;
 use App\Projects\Domain\ValueObject\RequestId;
 use App\Projects\Domain\ValueObject\RequestStatus;
-use App\Shared\Domain\Equatable;
-use App\Shared\Domain\Hashable;
-use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class Request

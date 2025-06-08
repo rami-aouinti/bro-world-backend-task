@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\Exception\UserIsNotTaskOwnerException;
-use App\Shared\Domain\Equatable;
+use App\General\Domain\Equatable;
 use App\General\Domain\ValueObject\UserId;
+use App\Projects\Domain\Exception\UserIsNotTaskOwnerException;
 
 /**
  * Class TaskOwner

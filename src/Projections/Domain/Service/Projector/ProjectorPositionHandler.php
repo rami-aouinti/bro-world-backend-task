@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Service\Projector;
 
+use App\General\Domain\ValueObject\DateTime;
 use App\Projections\Domain\Entity\ProjectorPosition;
 use App\Projections\Domain\Repository\ProjectorPositionRepositoryInterface;
-use App\Shared\Domain\ValueObject\DateTime;
 
 /**
  * Class ProjectorPositionHandler

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Projections\Infrastructure\Repository;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
+use App\General\Domain\Criteria\Criteria;
+use App\General\Infrastructure\Criteria\CriteriaFinderInterface;
 use App\Projections\Domain\Entity\ProjectParticipantProjection;
 use App\Projections\Domain\Repository\ProjectParticipantProjectionRepositoryInterface;
-use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Infrastructure\Criteria\CriteriaFinderInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 final readonly class DoctrineProjectParticipantProjectionRepository implements ProjectParticipantProjectionRepositoryInterface
 {

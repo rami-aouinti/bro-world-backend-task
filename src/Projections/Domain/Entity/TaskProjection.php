@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Entity;
 
+use App\General\Domain\Hashable;
+use App\General\Domain\ValueObject\DateTime;
 use App\Projections\Domain\DTO\TaskMemento;
-use App\Shared\Domain\Hashable;
-use App\Shared\Domain\ValueObject\DateTime;
 
 /**
  * Class TaskProjection

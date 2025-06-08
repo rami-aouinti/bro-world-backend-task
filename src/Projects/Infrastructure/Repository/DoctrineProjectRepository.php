@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Projects\Infrastructure\Repository;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectRepository;
+use App\General\Infrastructure\Service\ManagedCollectionManager;
 use App\Projects\Domain\Entity\Project;
 use App\Projects\Domain\Entity\Request;
 use App\Projects\Domain\Repository\ProjectRepositoryInterface;
 use App\Projects\Domain\ValueObject\Participant;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectTask;
-use App\Shared\Infrastructure\Service\ManagedCollectionManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectRepository;
 use ReflectionException;
 
 /**

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\ValueObject;
 
+use App\General\Domain\Equatable;
+use App\General\Domain\ValueObject\DateTime;
 use App\Projects\Domain\Exception\TaskStartDateIsGreaterThanFinishDateException;
-use App\Shared\Domain\Equatable;
-use App\Shared\Domain\ValueObject\DateTime;
 
 /**
  * Class TaskInformation

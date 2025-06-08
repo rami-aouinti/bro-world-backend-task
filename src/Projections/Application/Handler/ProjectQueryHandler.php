@@ -10,7 +10,7 @@ use App\Projections\Domain\Entity\ProjectProjection;
 use App\Projections\Domain\Exception\InsufficientPermissionsException;
 use App\Projections\Domain\Exception\ObjectDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
-use App\Shared\Application\Bus\Query\QueryHandlerInterface;
+use App\General\Application\Bus\Query\QueryHandlerInterface;
 
 use function sprintf;
 

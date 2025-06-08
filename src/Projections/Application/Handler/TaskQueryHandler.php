@@ -11,7 +11,7 @@ use App\Projections\Domain\Exception\InsufficientPermissionsException;
 use App\Projections\Domain\Exception\ObjectDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskProjectionRepositoryInterface;
-use App\Shared\Application\Bus\Query\QueryHandlerInterface;
+use App\General\Application\Bus\Query\QueryHandlerInterface;
 
 use function sprintf;
 

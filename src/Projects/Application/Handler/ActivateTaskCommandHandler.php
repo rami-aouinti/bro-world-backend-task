@@ -9,8 +9,8 @@ use App\Projects\Application\Service\ProjectFinderInterface;
 use App\Projects\Application\Service\TaskFinderInterface;
 use App\Projects\Domain\Repository\TaskRepositoryInterface;
 use App\Projects\Domain\ValueObject\TaskId;
-use App\Shared\Application\Bus\Command\CommandHandlerInterface;
-use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
+use App\General\Application\Bus\Command\CommandHandlerInterface;
+use App\General\Application\Bus\Event\IntegrationEventBusInterface;
 use App\General\Application\Service\AuthenticatorServiceInterface;
 
 final readonly class ActivateTaskCommandHandler implements CommandHandlerInterface

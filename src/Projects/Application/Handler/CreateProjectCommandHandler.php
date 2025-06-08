@@ -13,8 +13,8 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectInformation;
 use App\Projects\Domain\ValueObject\ProjectName;
 use App\Projects\Domain\ValueObject\ProjectOwner;
-use App\Shared\Application\Bus\Command\CommandHandlerInterface;
-use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
+use App\General\Application\Bus\Command\CommandHandlerInterface;
+use App\General\Application\Bus\Event\IntegrationEventBusInterface;
 use App\General\Application\Service\AuthenticatorServiceInterface;
 
 final readonly class CreateProjectCommandHandler implements CommandHandlerInterface

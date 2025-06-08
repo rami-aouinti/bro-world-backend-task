@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\DTO;
 
+use App\General\Domain\ValueObject\DateTime;
 use App\Projections\Domain\Service\EventStore\EventStreamInterface;
-use App\Shared\Domain\ValueObject\DateTime;
 
 final readonly class EventStreamInfoDTO
 {

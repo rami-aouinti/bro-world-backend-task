@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Repository;
 
-use App\Shared\Domain\Criteria\Criteria;
+use App\General\Domain\Criteria\Criteria;
 
 /**
  *

@@ -7,7 +7,7 @@ namespace App\Projections\Application\Handler;
 use App\General\Infrastructure\ValueObject\SymfonyUser;
 use App\Projections\Application\Query\UserProfileQuery;
 use App\Projections\Domain\Entity\UserProjection;
-use App\Shared\Application\Bus\Query\QueryHandlerInterface;
+use App\General\Application\Bus\Query\QueryHandlerInterface;
 
 /**
  * Class UserProfileQueryHandler

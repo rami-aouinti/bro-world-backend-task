@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Service;
 
-use App\Shared\Domain\Hashable;
+use App\General\Domain\Hashable;
 
 /**
  * Class ProjectorUnitOfWork

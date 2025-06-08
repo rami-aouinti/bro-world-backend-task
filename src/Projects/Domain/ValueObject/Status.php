@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\ValueObject;
 
-use App\Shared\Domain\Equatable;
+use App\General\Domain\Equatable;
 
 use function get_class;
 use function in_array;

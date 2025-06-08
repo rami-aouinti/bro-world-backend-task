@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Event;
 
-use App\Shared\Domain\Event\DomainEvent;
+use App\General\Domain\Event\DomainEvent;
 
+/**
+ * Class UserWasCreatedEvent
+ *
+ * @package App\Projections\Domain\Event
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class UserWasCreatedEvent extends DomainEvent
 {
     public function __construct(

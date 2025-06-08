@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Collection;
 
+use App\General\Domain\Collection\ManagedCollection;
 use App\Projects\Domain\Exception\TaskLinkAlreadyExistsException;
 use App\Projects\Domain\Exception\TaskLinkDoesNotExistException;
 use App\Projects\Domain\ValueObject\TaskLink;
-use App\Shared\Domain\Collection\ManagedCollection;
 
 /**
  * Class TaskLinkCollection

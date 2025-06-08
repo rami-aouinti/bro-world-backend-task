@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Task\Controller\Api;
 
+use App\General\Application\Service\UuidGeneratorInterface;
 use App\General\Infrastructure\ValueObject\SymfonyUser;
+use App\Projects\Application\Command\CreateProjectCommand;
+use App\Projects\Infrastructure\Service\DTO\ProjectInformationDTO;
+use App\General\Application\Bus\Command\CommandBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Projects\Application\Command\CreateProjectCommand;
-use App\Projects\Infrastructure\Service\DTO\ProjectInformationDTO;
-use App\Shared\Application\Bus\Command\CommandBusInterface;
-use App\Shared\Application\Service\UuidGeneratorInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class ProjectController

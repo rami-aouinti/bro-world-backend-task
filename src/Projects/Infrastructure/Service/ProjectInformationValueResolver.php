@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projects\Infrastructure\Service;
 
+use App\General\Infrastructure\Service\ValueResolver;
 use App\Projects\Infrastructure\Service\DTO\ProjectInformationDTO;
-use App\Shared\Infrastructure\Service\ValueResolver;
 
 /**
  * Class ProjectInformationValueResolver

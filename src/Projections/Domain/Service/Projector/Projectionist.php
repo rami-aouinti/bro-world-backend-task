@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Service\Projector;
 
+use App\General\Domain\Service\TransactionManagerInterface;
 use App\Projections\Domain\DTO\ProjectionistResultDTO;
 use App\Projections\Domain\Service\EventStore\EventStoreInterface;
-use App\Shared\Domain\Service\TransactionManagerInterface;
 use Exception;
 
 /**

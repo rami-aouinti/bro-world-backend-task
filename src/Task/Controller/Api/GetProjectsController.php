@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Task\Controller\Api;
 
-use App\General\Infrastructure\ValueObject\SymfonyUser;
+use App\General\Application\Bus\Query\QueryBusInterface;
+use App\General\Application\Paginator\Pagination;
+use App\General\Infrastructure\Criteria\QueryCriteriaFromRequestConverterInterface;
+use App\General\Infrastructure\Criteria\RequestCriteriaDTO;
+use App\General\Infrastructure\Paginator\PaginationResponseDTO;
 use App\Projections\Application\Query\ProjectListQuery;
 use App\Projections\Infrastructure\DTO\ProjectListResponseDTO;
-use App\Shared\Application\Bus\Query\QueryBusInterface;
-use App\Shared\Application\Paginator\Pagination;
-use App\Shared\Infrastructure\Criteria\QueryCriteriaFromRequestConverterInterface;
-use App\Shared\Infrastructure\Criteria\RequestCriteriaDTO;
-use App\Shared\Infrastructure\Paginator\PaginationResponseDTO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;

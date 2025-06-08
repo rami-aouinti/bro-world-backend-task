@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Entity;
 
-use App\Shared\Domain\ValueObject\DateTime;
+use App\General\Domain\ValueObject\DateTime;
 
 /**
  * Class ProjectorPosition

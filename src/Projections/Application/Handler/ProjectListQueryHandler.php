@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Handler;
 
+use App\General\Application\Bus\Query\QueryHandlerInterface;
+use App\General\Application\Criteria\CriteriaFromQueryBuilderInterface;
+use App\General\Application\Paginator\Pagination;
+use App\General\Application\Paginator\PaginatorInterface;
+use App\General\Domain\Criteria\Criteria;
+use App\General\Domain\Criteria\Order;
 use App\Projections\Application\Query\ProjectListQuery;
 use App\Projections\Domain\Repository\ProjectListProjectionRepositoryInterface;
-use App\Shared\Application\Bus\Query\QueryHandlerInterface;
-use App\Shared\Application\Criteria\CriteriaFromQueryBuilderInterface;
-use App\Shared\Application\Paginator\Pagination;
-use App\Shared\Application\Paginator\PaginatorInterface;
-use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\Criteria\Order;
 
 /**
  * Class ProjectListQueryHandler

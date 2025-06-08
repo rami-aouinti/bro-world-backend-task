@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Entity;
 
+use App\General\Domain\Hashable;
 use App\Projections\Domain\DTO\ProjectParticipantMemento;
-use App\Shared\Domain\Hashable;
 
 /**
  * Class ProjectParticipantProjection

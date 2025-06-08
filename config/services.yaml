@@ -43,19 +43,19 @@ services:
             calls:
                 - setMailerService: [ '@App\General\Domain\Service\Interfaces\MailerServiceInterface', '%env(resolve:APP_SENDER_EMAIL)%', '%env(resolve:APP_ERROR_RECEIVER_EMAIL)%', '%env(int:APP_EMAIL_NOTIFICATION_ABOUT_ERROR)%']
                 - setTwig: ['@twig']
-        App\Shared\Application\Bus\Command\CommandHandlerInterface:
+        App\General\Application\Bus\Command\CommandHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: command_bus }
-        App\Shared\Application\Bus\Query\QueryHandlerInterface:
+        App\General\Application\Bus\Query\QueryHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
-        App\Shared\Application\Bus\Event\DomainEventSubscriberInterface:
+        App\General\Application\Bus\Event\DomainEventSubscriberInterface:
             tags:
                 - { name: messenger.message_handler, bus: domainEvent.bus }
-        App\Shared\Application\Bus\Event\IntegrationEventSubscriberInterface:
+        App\General\Application\Bus\Event\IntegrationEventSubscriberInterface:
             tags:
                 - { name: messenger.message_handler, bus: integrationEvent.bus }
-        App\Shared\Domain\Event\DomainEventInterface:
+        App\General\Domain\Event\DomainEventInterface:
             tags: [ 'task_manager.domain_event' ]
         App\Projections\Domain\Service\Projector\ProjectorInterface:
             tags: [ 'task_manager.projector' ]
@@ -132,12 +132,12 @@ services:
         arguments:
             $apiMediaBaseUrl: '%api_media_base_url%'
 
-    App\Shared\Infrastructure\Service\DomainEventMapper:
+    App\General\Infrastructure\Service\DomainEventMapper:
         tags:
             - { name: task_manager.argument_loader, target_tag: task_manager.domain_event }
 
 
-    App\Shared\Infrastructure\Service\ExceptionListener:
+    App\General\Infrastructure\Service\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onException }
         arguments:

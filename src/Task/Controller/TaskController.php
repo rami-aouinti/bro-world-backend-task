@@ -16,7 +16,7 @@ use App\Projects\Application\Command\CloseTaskCommand;
 use App\Projects\Application\Command\CreateTaskLinkCommand;
 use App\Projects\Application\Command\DeleteTaskLinkCommand;
 use App\Projects\Infrastructure\Service\DTO\TaskInformationDTO;
-use App\Shared\Application\Bus\Command\CommandBusInterface;
+use App\General\Application\Bus\Command\CommandBusInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 

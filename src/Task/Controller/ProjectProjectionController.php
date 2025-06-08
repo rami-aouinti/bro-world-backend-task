@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Task\Controller;
 
+use App\General\Application\Bus\Query\QueryBusInterface;
+use App\General\Application\Paginator\Pagination;
+use App\General\Infrastructure\Criteria\QueryCriteriaFromRequestConverterInterface;
+use App\General\Infrastructure\Criteria\RequestCriteriaDTO;
+use App\General\Infrastructure\Paginator\PaginationResponseDTO;
 use App\General\Infrastructure\ValueObject\SymfonyUser;
-use Nelmio\ApiDocBundle\Attribute\Model;
-use OpenApi\Attributes as OA;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Projections\Application\Query\ProjectListQuery;
 use App\Projections\Application\Query\ProjectParticipantQuery;
 use App\Projections\Application\Query\ProjectQuery;
@@ -20,13 +20,9 @@ use App\Projections\Infrastructure\DTO\ProjectParticipantResponseDTO;
 use App\Projections\Infrastructure\DTO\ProjectRequestResponseDTO;
 use App\Projections\Infrastructure\DTO\ProjectResponseDTO;
 use App\Projections\Infrastructure\DTO\TaskListResponseDTO;
-use App\Shared\Application\Bus\Query\QueryBusInterface;
-use App\Shared\Application\Paginator\Pagination;
-use App\Shared\Infrastructure\Criteria\QueryCriteriaFromRequestConverterInterface;
-use App\Shared\Infrastructure\Criteria\RequestCriteriaDTO;
-use App\Shared\Infrastructure\Paginator\PaginationResponseDTO;
-use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ProjectProjectionController

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Subscriber;
 
+use App\General\Application\Bus\Event\IntegrationEventInterface;
+use App\General\Application\Bus\Event\IntegrationEventSubscriberInterface;
+use App\General\Application\Service\UuidGeneratorInterface;
+use App\General\Domain\Service\DomainEventFactoryInterface;
 use App\Projections\Domain\Entity\Event;
 use App\Projections\Domain\Repository\EventRepositoryInterface;
 use App\Projections\Domain\Service\EventStore\EventStreamFilterInterface;
-use App\Shared\Application\Bus\Event\IntegrationEventInterface;
-use App\Shared\Application\Bus\Event\IntegrationEventSubscriberInterface;
-use App\Shared\Application\Service\UuidGeneratorInterface;
-use App\Shared\Domain\Service\DomainEventFactoryInterface;
 use Exception;
 
 /**

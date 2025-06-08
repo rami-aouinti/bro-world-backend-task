@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Projections\Infrastructure\Repository;
 
+use App\General\Domain\ValueObject\DateTime;
+use App\Projections\Domain\Entity\Event;
+use App\Projections\Domain\Repository\EventRepositoryInterface;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use App\Projections\Domain\Entity\Event;
-use App\Projections\Domain\Repository\EventRepositoryInterface;
-use App\Shared\Domain\ValueObject\DateTime;
 
 final readonly class DoctrineEventRepository implements EventRepositoryInterface
 {

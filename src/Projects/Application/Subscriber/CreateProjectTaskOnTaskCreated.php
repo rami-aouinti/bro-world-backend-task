@@ -9,8 +9,8 @@ use App\Projects\Domain\Event\TaskWasCreatedEvent;
 use App\Projects\Domain\Repository\ProjectRepositoryInterface;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\TaskId;
-use App\Shared\Application\Bus\Event\DomainEventSubscriberInterface;
-use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
+use App\General\Application\Bus\Event\DomainEventSubscriberInterface;
+use App\General\Application\Bus\Event\IntegrationEventBusInterface;
 use App\General\Domain\ValueObject\UserId;
 
 /**

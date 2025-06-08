@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Handler;
 
+use App\General\Application\Bus\Query\QueryHandlerInterface;
+use App\General\Application\Criteria\CriteriaFromQueryBuilderInterface;
+use App\General\Application\Paginator\Pagination;
+use App\General\Application\Paginator\PaginatorInterface;
+use App\General\Domain\Criteria\Criteria;
+use App\General\Domain\Criteria\Operand;
+use App\General\Domain\Criteria\OperatorEnum;
+use App\General\Domain\Criteria\Order;
 use App\General\Infrastructure\ValueObject\SymfonyUser;
 use App\Projections\Application\Query\TaskLinkQuery;
 use App\Projections\Domain\Exception\InsufficientPermissionsException;
@@ -11,14 +19,6 @@ use App\Projections\Domain\Exception\ObjectDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskLinkProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskProjectionRepositoryInterface;
-use App\Shared\Application\Bus\Query\QueryHandlerInterface;
-use App\Shared\Application\Criteria\CriteriaFromQueryBuilderInterface;
-use App\Shared\Application\Paginator\Pagination;
-use App\Shared\Application\Paginator\PaginatorInterface;
-use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\Criteria\Operand;
-use App\Shared\Domain\Criteria\OperatorEnum;
-use App\Shared\Domain\Criteria\Order;
 
 use function sprintf;
 

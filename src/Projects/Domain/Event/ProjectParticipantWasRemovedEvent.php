@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Event;
 
-use App\Shared\Domain\Event\DomainEvent;
+use App\General\Domain\Event\DomainEvent;
 
 /**
  * Class ProjectParticipantWasRemovedEvent

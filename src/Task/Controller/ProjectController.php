@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace App\Task\Controller;
 
-use Nelmio\ApiDocBundle\Attribute\Model;
-use OpenApi\Attributes as OA;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\General\Application\Service\UuidGeneratorInterface;
 use App\Projects\Application\Command\ActivateProjectCommand;
 use App\Projects\Application\Command\ChangeProjectInformationCommand;
 use App\Projects\Application\Command\ChangeProjectOwnerCommand;
@@ -23,8 +18,11 @@ use App\Projects\Application\Command\RejectRequestCommand;
 use App\Projects\Application\Command\RemoveParticipantCommand;
 use App\Projects\Infrastructure\Service\DTO\ProjectInformationDTO;
 use App\Projects\Infrastructure\Service\DTO\TaskInformationDTO;
-use App\Shared\Application\Bus\Command\CommandBusInterface;
-use App\Shared\Application\Service\UuidGeneratorInterface;
+use App\General\Application\Bus\Command\CommandBusInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 

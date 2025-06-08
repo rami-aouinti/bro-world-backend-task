@@ -23,8 +23,8 @@ doctrine:
             EnumLanguage: App\General\Domain\Doctrine\DBAL\Types\EnumLanguageType
             EnumLocale: App\General\Domain\Doctrine\DBAL\Types\EnumLocaleType
             EnumLogLogin: App\General\Domain\Doctrine\DBAL\Types\EnumLogLoginType
-            tm_datetime: App\Shared\Infrastructure\Persistence\Doctrine\DateTimeType
-            user_id: App\Shared\Infrastructure\Persistence\Doctrine\UserIdType
+            tm_datetime: App\General\Infrastructure\Persistence\Doctrine\DateTimeType
+            user_id: App\General\Infrastructure\Persistence\Doctrine\UserIdType
 
             project_id: App\Projects\Infrastructure\Persistence\Doctrine\ProjectIdType
             project_name: App\Projects\Infrastructure\Persistence\Doctrine\ProjectNameType
@@ -70,17 +70,11 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Projections/Infrastructure/Persistence/Doctrine'
                         prefix: 'App\Projections\Domain'
                         alias: Projections
-                    Shared:
-                        type: xml
-                        dir: '%kernel.project_dir%/src/Shared/Infrastructure/Persistence/Doctrine'
-                        is_bundle: false
-                        prefix: 'App\Shared'
-                        alias: Shared
                     General:
-                        type: attribute
+                        type: xml
+                        dir: '%kernel.project_dir%/src/General/Infrastructure/Persistence/Doctrine'
                         is_bundle: false
-                        dir: '%kernel.project_dir%/src/General/Domain/Entity'
-                        prefix: 'App\General\Domain\Entity'
+                        prefix: 'App\General'
                         alias: General
 
                 dql:

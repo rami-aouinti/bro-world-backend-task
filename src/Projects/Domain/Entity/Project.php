@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Entity;
 
+use App\General\Domain\Aggregate\AggregateRoot;
+use App\General\Domain\Equatable;
+use App\General\Domain\ValueObject\UserId;
 use App\Projects\Domain\Collection\ParticipantCollection;
 use App\Projects\Domain\Collection\ProjectTaskCollection;
 use App\Projects\Domain\Collection\RequestCollection;
@@ -36,9 +39,6 @@ use App\Projects\Domain\ValueObject\RequestStatus;
 use App\Projects\Domain\ValueObject\TaskId;
 use App\Projects\Domain\ValueObject\TaskInformation;
 use App\Projects\Domain\ValueObject\TaskOwner;
-use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\Equatable;
-use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class Project

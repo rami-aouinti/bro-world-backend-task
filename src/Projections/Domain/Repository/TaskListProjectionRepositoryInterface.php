@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Repository;
 
+use App\General\Domain\Criteria\Criteria;
 use App\Projections\Domain\Entity\TaskListProjection;
-use App\Shared\Domain\Criteria\Criteria;
 
 /**
  * @method findAllByCriteria(Criteria $criteria): TaskListProjection[]

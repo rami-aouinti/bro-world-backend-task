@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Service\Projector;
 
+use App\General\Domain\Hashable;
 use App\Projections\Domain\Entity\ProjectProjection;
 use App\Projections\Domain\Entity\TaskListProjection;
 use App\Projections\Domain\Entity\UserProjection;
@@ -18,7 +19,6 @@ use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskListProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\UserProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
-use App\Shared\Domain\Hashable;
 use Exception;
 
 /**

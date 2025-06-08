@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Projects\Application\Service;
 
+use App\General\Application\OptimisticLock\OptimisticLockManagerInterface;
+use App\General\Domain\Service\TransactionManagerInterface;
 use App\Projects\Domain\Entity\Project;
 use App\Projects\Domain\Repository\ProjectRepositoryInterface;
-use App\Shared\Application\OptimisticLock\OptimisticLockManagerInterface;
-use App\Shared\Domain\Service\TransactionManagerInterface;
 
 /**
  * Class ProjectSaver

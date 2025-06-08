@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Service\Projector;
 
+use App\General\Domain\Hashable;
 use App\Projections\Domain\Entity\ProjectProjection;
 use App\Projections\Domain\Entity\TaskProjection;
 use App\Projections\Domain\Event\TaskInformationWasChangedEvent;
@@ -13,7 +14,6 @@ use App\Projections\Domain\Exception\ProjectionDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
-use App\Shared\Domain\Hashable;
 use Exception;
 
 /**

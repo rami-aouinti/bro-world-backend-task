@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\Entity;
 
+use App\General\Domain\Event\DomainEventInterface;
+use App\General\Domain\Service\DomainEventFactoryInterface;
+use App\General\Domain\ValueObject\DateTime;
 use App\Projections\Domain\DTO\DomainEventEnvelope;
-use App\Shared\Domain\Event\DomainEventInterface;
-use App\Shared\Domain\Service\DomainEventFactoryInterface;
-use App\Shared\Domain\ValueObject\DateTime;
 use Exception;
 use JsonException;
 

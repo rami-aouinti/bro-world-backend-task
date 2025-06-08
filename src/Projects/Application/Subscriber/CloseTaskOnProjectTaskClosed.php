@@ -8,8 +8,8 @@ use App\Projects\Application\Service\TaskFinderInterface;
 use App\Projects\Domain\Event\ProjectTaskWasClosedEvent;
 use App\Projects\Domain\Repository\TaskRepositoryInterface;
 use App\Projects\Domain\ValueObject\TaskId;
-use App\Shared\Application\Bus\Event\DomainEventSubscriberInterface;
-use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
+use App\General\Application\Bus\Event\DomainEventSubscriberInterface;
+use App\General\Application\Bus\Event\IntegrationEventBusInterface;
 use App\General\Domain\ValueObject\UserId;
 
 /**

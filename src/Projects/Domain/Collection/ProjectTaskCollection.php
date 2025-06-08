@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Collection;
 
+use App\General\Domain\Collection\ManagedCollection;
+use App\General\Domain\ValueObject\UserId;
 use App\Projects\Domain\Exception\ProjectTaskDoesNotExistException;
 use App\Projects\Domain\Exception\ProjectUserHasTaskException;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectTask;
 use App\Projects\Domain\ValueObject\TaskId;
-use App\Shared\Domain\Collection\ManagedCollection;
-use App\General\Domain\ValueObject\UserId;
 
 /**
  * Class ProjectTaskCollection

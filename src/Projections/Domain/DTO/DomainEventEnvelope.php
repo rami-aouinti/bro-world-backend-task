@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Domain\DTO;
 
-use App\Shared\Domain\Event\DomainEventInterface;
+use App\General\Domain\Event\DomainEventInterface;
 
 final readonly class DomainEventEnvelope
 {
