@@ -9,6 +9,12 @@ use App\Projects\Domain\Exception\TaskLinkDoesNotExistException;
 use App\Projects\Domain\ValueObject\TaskLink;
 use App\Shared\Domain\Collection\ManagedCollection;
 
+/**
+ * Class TaskLinkCollection
+ *
+ * @package App\Projects\Domain\Collection
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskLinkCollection extends ManagedCollection
 {
     public function ensureTaskLinkExists(TaskLink $link): void

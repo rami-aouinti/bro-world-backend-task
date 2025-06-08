@@ -6,6 +6,9 @@ namespace App\Projections\Domain\Service\Projector;
 
 use App\Shared\Domain\ValueObject\DateTime;
 
+/**
+ *
+ */
 interface ProjectorPositionHandlerInterface
 {
     public function getPosition(ProjectorInterface $projector): ?DateTime;

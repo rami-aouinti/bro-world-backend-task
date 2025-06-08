@@ -8,6 +8,12 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use App\Shared\Domain\Exception\DomainException;
 use App\Shared\Infrastructure\Service\DTO\ExceptionDTO;
 
+/**
+ * Class ExceptionListener
+ *
+ * @package App\Shared\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ExceptionListener
 {
     public function __construct(
@@ -32,7 +38,7 @@ final readonly class ExceptionListener
                     $exception->getLine(),
                     $exception->getTrace()
                 ),
-                'prod' !== $this->environment
+                $this->environment !== 'prod'
             )
         );
     }
@@ -40,7 +46,7 @@ final readonly class ExceptionListener
     private function getParentDomainExceptionIfExists(\Throwable $exception): \Throwable
     {
         $result = $exception;
-        while (null !== $result) {
+        while ($result !== null) {
             if ($result instanceof DomainException) {
                 return $result;
             }

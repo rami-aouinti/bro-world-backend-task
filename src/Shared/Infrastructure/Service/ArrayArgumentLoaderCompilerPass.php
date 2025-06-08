@@ -8,11 +8,19 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use function sprintf;
+
+/**
+ * Class ArrayArgumentLoaderCompilerPass
+ *
+ * @package App\Shared\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ArrayArgumentLoaderCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'task_manager.argument_loader';
+    public const string TAG = 'task_manager.argument_loader';
 
-    public const TARGET_TAG_FIELD = 'target_tag';
+    public const string TARGET_TAG_FIELD = 'target_tag';
 
     public function process(ContainerBuilder $container): void
     {

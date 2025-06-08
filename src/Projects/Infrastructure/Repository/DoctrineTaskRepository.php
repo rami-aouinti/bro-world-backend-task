@@ -11,7 +11,14 @@ use App\Projects\Domain\Repository\TaskRepositoryInterface;
 use App\Projects\Domain\ValueObject\TaskId;
 use App\Projects\Domain\ValueObject\TaskLink;
 use App\Shared\Infrastructure\Service\ManagedCollectionManager;
+use ReflectionException;
 
+/**
+ * Class DoctrineTaskRepository
+ *
+ * @package App\Projects\Infrastructure\Repository
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class DoctrineTaskRepository implements TaskRepositoryInterface
 {
     public function __construct(
@@ -21,7 +28,7 @@ final readonly class DoctrineTaskRepository implements TaskRepositoryInterface
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function findById(TaskId $id): ?Task
     {
@@ -40,7 +47,7 @@ final readonly class DoctrineTaskRepository implements TaskRepositoryInterface
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function save(Task $task): void
     {

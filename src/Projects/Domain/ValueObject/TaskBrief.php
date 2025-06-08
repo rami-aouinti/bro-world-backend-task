@@ -6,9 +6,15 @@ namespace App\Projects\Domain\ValueObject;
 
 use App\Shared\Domain\ValueObject\StringValueObject;
 
+/**
+ * Class TaskBrief
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskBrief extends StringValueObject
 {
-    private const MAX_LENGTH = 2000;
+    private const int MAX_LENGTH = 2000;
 
     protected function ensureIsValid(): void
     {

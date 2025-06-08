@@ -7,9 +7,15 @@ namespace App\Shared\Infrastructure\Service;
 use Symfony\Component\HttpFoundation\Response;
 use App\Shared\Domain\Exception\DomainException;
 
+/**
+ * Class ExceptionToHttpCodeMapper
+ *
+ * @package App\Shared\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ExceptionToHttpCodeMapper implements ExceptionToHttpCodeMapperInterface
 {
-    private const CODE_DEFAULT = Response::HTTP_INTERNAL_SERVER_ERROR;
+    private const int CODE_DEFAULT = Response::HTTP_INTERNAL_SERVER_ERROR;
 
     private array $map = [
         DomainException::CODE_UNAUTHORIZED => Response::HTTP_UNAUTHORIZED,

@@ -8,6 +8,12 @@ use App\Projects\Domain\Exception\TaskFinishDateIsGreaterThanProjectFinishDateEx
 use App\Projects\Domain\Exception\TaskStartDateIsGreaterThanProjectFinishDateException;
 use App\Shared\Domain\Equatable;
 
+/**
+ * Class ProjectInformation
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ProjectInformation implements Equatable
 {
     public function __construct(
@@ -19,11 +25,11 @@ final readonly class ProjectInformation implements Equatable
 
     public function ensureIsFinishDateGreaterThanTaskDates(?TaskStartDate $startDate, ?TaskFinishDate $finishDate): void
     {
-        if (null !== $startDate && $startDate->isGreaterThan($this->finishDate)) {
+        if ($startDate !== null && $startDate->isGreaterThan($this->finishDate)) {
             throw new TaskStartDateIsGreaterThanProjectFinishDateException($this->finishDate->getValue(), $startDate->getValue())
             ;
         }
-        if (null !== $finishDate && $finishDate->isGreaterThan($this->finishDate)) {
+        if ($finishDate !== null && $finishDate->isGreaterThan($this->finishDate)) {
             throw new TaskFinishDateIsGreaterThanProjectFinishDateException($this->finishDate->getValue(), $finishDate->getValue());
         }
     }

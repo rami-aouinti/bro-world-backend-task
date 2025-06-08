@@ -12,6 +12,12 @@ use App\Shared\Application\Bus\Event\DomainEventSubscriberInterface;
 use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
 use App\General\Domain\ValueObject\UserId;
 
+/**
+ * Class CloseTaskOnProjectTaskClosed
+ *
+ * @package App\Projects\Application\Subscriber
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class CloseTaskOnProjectTaskClosed implements DomainEventSubscriberInterface
 {
     public function __construct(

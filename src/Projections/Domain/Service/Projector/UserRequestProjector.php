@@ -14,7 +14,14 @@ use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\UserRequestProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
 use App\Shared\Domain\Hashable;
+use Exception;
 
+/**
+ * Class UserRequestProjector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class UserRequestProjector extends Projector
 {
     public function __construct(
@@ -40,12 +47,12 @@ final class UserRequestProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenRequestCreated(RequestWasCreatedEvent $event): void
     {
         $projectProjection = $this->projectRepository->findById($event->getAggregateId());
-        if (null === $projectProjection) {
+        if ($projectProjection === null) {
             throw new ProjectionDoesNotExistException($event->getAggregateId(), ProjectProjection::class);
         }
 
@@ -60,13 +67,13 @@ final class UserRequestProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenRequestStatusChanged(RequestStatusWasChangedEvent $event): void
     {
         $projection = $this->getProjectionById($event->requestId);
 
-        if (null === $projection) {
+        if ($projection === null) {
             throw new ProjectionDoesNotExistException($event->requestId, UserRequestProjection::class);
         }
 
@@ -89,7 +96,7 @@ final class UserRequestProjector extends Projector
     {
         $projection = $this->repository->findById($id);
 
-        if (null !== $projection) {
+        if ($projection !== null) {
             $this->unitOfWork->loadProjection($projection);
         }
 

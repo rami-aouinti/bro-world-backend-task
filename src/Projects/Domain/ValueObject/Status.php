@@ -6,6 +6,15 @@ namespace App\Projects\Domain\ValueObject;
 
 use App\Shared\Domain\Equatable;
 
+use function get_class;
+use function in_array;
+
+/**
+ * Class Status
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 abstract class Status implements Equatable
 {
     abstract public function getScalar(): int;

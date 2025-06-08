@@ -14,7 +14,14 @@ use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
 use App\Shared\Domain\Hashable;
+use Exception;
 
+/**
+ * Class TaskProjector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskProjector extends Projector
 {
     public function __construct(
@@ -45,12 +52,12 @@ final class TaskProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenTaskCreated(TaskWasCreatedEvent $event, ?int $version): void
     {
         $projectProjection = $this->projectRepository->findById($event->projectId);
-        if (null === $projectProjection) {
+        if ($projectProjection === null) {
             throw new ProjectionDoesNotExistException($event->projectId, ProjectProjection::class);
         }
 
@@ -69,7 +76,7 @@ final class TaskProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenTaskInformationChanged(TaskInformationWasChangedEvent $event, ?int $version): void
     {
@@ -99,12 +106,12 @@ final class TaskProjector extends Projector
     {
         $projection = $this->repository->findById($id);
 
-        if (null !== $projection) {
+        if ($projection !== null) {
             $this->unitOfWork->loadProjection($projection);
         }
 
         $result = $this->unitOfWork->findProjection($id);
-        if (null === $result) {
+        if ($result === null) {
             throw new ProjectionDoesNotExistException($id, TaskProjection::class);
         }
 

@@ -6,6 +6,12 @@ namespace App\Projections\Domain\Service\EventStore;
 
 use App\Projections\Domain\DTO\DomainEventEnvelope;
 
+/**
+ * Class EventStreamFactory
+ *
+ * @package App\Projections\Domain\Service\EventStore
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class EventStreamFactory implements EventStreamFactoryInterface
 {
     public function __construct(private ?EventStreamFilterInterface $streamFilter = null)
@@ -27,7 +33,7 @@ final readonly class EventStreamFactory implements EventStreamFactoryInterface
      */
     private function filterEnvelopes(array $envelopes): array
     {
-        if (null === $this->streamFilter) {
+        if ($this->streamFilter === null) {
             return $envelopes;
         }
 

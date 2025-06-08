@@ -6,6 +6,9 @@ namespace App\Projections\Domain\Service\EventStore;
 
 use App\Shared\Domain\Event\DomainEventInterface;
 
+/**
+ *
+ */
 interface EventStreamFilterInterface
 {
     public function isSuitable(DomainEventInterface $domainEvent): bool;

@@ -6,6 +6,14 @@ namespace App\Projections\Domain\Service\EventStore;
 
 use App\Projections\Domain\DTO\DomainEventEnvelope;
 
+use function count;
+
+/**
+ * Class EventStream
+ *
+ * @package App\Projections\Domain\Service\EventStore
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class EventStream implements EventStreamInterface
 {
     private int $cursor = 0;

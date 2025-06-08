@@ -8,6 +8,12 @@ use App\Projections\Domain\Entity\ProjectorPosition;
 use App\Projections\Domain\Repository\ProjectorPositionRepositoryInterface;
 use App\Shared\Domain\ValueObject\DateTime;
 
+/**
+ * Class ProjectorPositionHandler
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectorPositionHandler implements ProjectorPositionHandlerInterface
 {
     /**
@@ -21,9 +27,7 @@ final class ProjectorPositionHandler implements ProjectorPositionHandlerInterfac
 
     public function getPosition(ProjectorInterface $projector): ?DateTime
     {
-        $position = $this->getPositionInternal($projector);
-
-        return $position->getPosition();
+        return $this->getPositionInternal($projector)->getPosition();
     }
 
     public function storePosition(ProjectorInterface $projector, ?DateTime $position): void
@@ -35,9 +39,7 @@ final class ProjectorPositionHandler implements ProjectorPositionHandlerInterfac
 
     public function isBroken(ProjectorInterface $projector): bool
     {
-        $position = $this->getPositionInternal($projector);
-
-        return $position->isBroken();
+        return $this->getPositionInternal($projector)->isBroken();
     }
 
     public function markAsBroken(ProjectorInterface $projector): void
@@ -71,7 +73,7 @@ final class ProjectorPositionHandler implements ProjectorPositionHandlerInterfac
         if (!isset($this->positions[$projectorName])) {
             $position = $this->repository->findByProjectorName($projectorName);
 
-            if (null === $position) {
+            if ($position === null) {
                 $position = new ProjectorPosition($projectorName);
             }
 

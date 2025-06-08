@@ -6,6 +6,9 @@ namespace App\Projections\Domain\Service\Projector;
 
 use App\Projections\Domain\DTO\ProjectionistResultDTO;
 
+/**
+ *
+ */
 interface ProjectionistInterface
 {
     /**

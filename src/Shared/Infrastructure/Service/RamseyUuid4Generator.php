@@ -7,6 +7,12 @@ namespace App\Shared\Infrastructure\Service;
 use Ramsey\Uuid\UuidFactoryInterface;
 use App\Shared\Application\Service\UuidGeneratorInterface as UuidGeneratorInterfaceAlias;
 
+/**
+ * Class RamseyUuid4Generator
+ *
+ * @package App\Shared\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class RamseyUuid4Generator implements UuidGeneratorInterfaceAlias
 {
     public function __construct(private UuidFactoryInterface $factory)

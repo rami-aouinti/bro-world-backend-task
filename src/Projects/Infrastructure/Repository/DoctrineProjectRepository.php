@@ -13,7 +13,14 @@ use App\Projects\Domain\ValueObject\Participant;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectTask;
 use App\Shared\Infrastructure\Service\ManagedCollectionManager;
+use ReflectionException;
 
+/**
+ * Class DoctrineProjectRepository
+ *
+ * @package App\Projects\Infrastructure\Repository
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class DoctrineProjectRepository implements ProjectRepositoryInterface
 {
     private array $collections = [
@@ -29,7 +36,7 @@ final class DoctrineProjectRepository implements ProjectRepositoryInterface
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function findById(ProjectId $id): ?Project
     {
@@ -38,7 +45,7 @@ final class DoctrineProjectRepository implements ProjectRepositoryInterface
             'id' => $id,
         ]);
 
-        if (null === $object) {
+        if ($object === null) {
             return $object;
         }
 
@@ -56,7 +63,7 @@ final class DoctrineProjectRepository implements ProjectRepositoryInterface
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function save(Project $project): void
     {

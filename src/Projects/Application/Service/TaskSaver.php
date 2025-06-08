@@ -9,6 +9,12 @@ use App\Projects\Domain\Repository\TaskRepositoryInterface;
 use App\Shared\Application\OptimisticLock\OptimisticLockManagerInterface;
 use App\Shared\Domain\Service\TransactionManagerInterface;
 
+/**
+ * Class TaskSaver
+ *
+ * @package App\Projects\Application\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskSaver implements TaskSaverInterface
 {
     public function __construct(

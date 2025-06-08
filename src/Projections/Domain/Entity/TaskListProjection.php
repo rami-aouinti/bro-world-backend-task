@@ -100,6 +100,6 @@ final class TaskListProjection implements Hashable
 
     public function isUserOwner(string $ownerId): bool
     {
-        return $this->ownerId == $ownerId;
+        return $this->ownerId === $ownerId;
     }
 }

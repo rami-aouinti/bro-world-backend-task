@@ -6,6 +6,12 @@ namespace App\Projects\Application\Command;
 
 use App\Shared\Application\Bus\Command\CommandInterface;
 
+/**
+ * Class ChangeProjectInformationCommand
+ *
+ * @package App\Projects\Application\Command
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ChangeProjectInformationCommand implements CommandInterface
 {
     public function __construct(

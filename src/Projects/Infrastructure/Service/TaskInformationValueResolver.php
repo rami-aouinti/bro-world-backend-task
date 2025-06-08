@@ -7,6 +7,12 @@ namespace App\Projects\Infrastructure\Service;
 use App\Projects\Infrastructure\Service\DTO\TaskInformationDTO;
 use App\Shared\Infrastructure\Service\ValueResolver;
 
+/**
+ * Class TaskInformationValueResolver
+ *
+ * @package App\Projects\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskInformationValueResolver extends ValueResolver
 {
     protected function supportClass(): string

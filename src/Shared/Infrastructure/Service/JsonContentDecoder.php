@@ -4,18 +4,32 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Service;
 
+use JsonException;
+use RuntimeException;
+
+use function sprintf;
+
+/**
+ * Class JsonContentDecoder
+ *
+ * @package App\Shared\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class JsonContentDecoder implements ContentDecoderInterface
 {
+    /**
+     * @throws JsonException
+     */
     public function decode(string $content): array
     {
-        if ('' === $content) {
+        if ($content === '') {
             return [];
         }
 
-        $result = json_decode($content, true);
+        $result = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        if (null === $result) {
-            throw new \RuntimeException(sprintf('Syntax error in json request content "%s"', $content));
+        if ($result === null) {
+            throw new RuntimeException(sprintf('Syntax error in json request content "%s"', $content));
         }
 
         return $result;

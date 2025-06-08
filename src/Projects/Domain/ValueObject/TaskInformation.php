@@ -8,6 +8,12 @@ use App\Projects\Domain\Exception\TaskStartDateIsGreaterThanFinishDateException;
 use App\Shared\Domain\Equatable;
 use App\Shared\Domain\ValueObject\DateTime;
 
+/**
+ * Class TaskInformation
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskInformation implements Equatable
 {
     public function __construct(

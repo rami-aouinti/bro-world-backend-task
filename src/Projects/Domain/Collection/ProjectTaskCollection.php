@@ -12,6 +12,12 @@ use App\Projects\Domain\ValueObject\TaskId;
 use App\Shared\Domain\Collection\ManagedCollection;
 use App\General\Domain\ValueObject\UserId;
 
+/**
+ * Class ProjectTaskCollection
+ *
+ * @package App\Projects\Domain\Collection
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectTaskCollection extends ManagedCollection
 {
     public function ensureUserDoesNotHaveTask(UserId $userId, ProjectId $projectId): void

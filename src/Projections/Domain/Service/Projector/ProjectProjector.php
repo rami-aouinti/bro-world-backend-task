@@ -14,7 +14,16 @@ use App\Projections\Domain\Event\ProjectWasCreatedEvent;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
 use App\Shared\Domain\Hashable;
+use Exception;
 
+use function count;
+
+/**
+ * Class ProjectProjector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectProjector extends Projector
 {
     public function __construct(
@@ -39,7 +48,7 @@ final class ProjectProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenProjectCreated(ProjectWasCreatedEvent $event, ?int $version): void
     {
@@ -56,7 +65,7 @@ final class ProjectProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenProjectInformationChanged(ProjectInformationWasChangedEvent $event, ?int $version): void
     {
@@ -97,7 +106,7 @@ final class ProjectProjector extends Projector
     {
         $projection = $this->getProjectionById($event->getAggregateId());
 
-        if (null === $projection) {
+        if ($projection === null) {
             return;
         }
 
@@ -109,7 +118,7 @@ final class ProjectProjector extends Projector
     private function whenParticipantRemoved(ProjectParticipantWasRemovedEvent $event): void
     {
         $projection = $this->getProjectionByIdAndUserId($event->getAggregateId(), $event->participantId);
-        if (null === $projection) {
+        if ($projection === null) {
             return;
         }
 
@@ -137,7 +146,7 @@ final class ProjectProjector extends Projector
     {
         $projection = $this->repository->findByIdAndUserId($id, $userId);
 
-        if (null !== $projection) {
+        if ($projection !== null) {
             $this->unitOfWork->loadProjection($projection);
         }
 
@@ -153,7 +162,7 @@ final class ProjectProjector extends Projector
     {
         $projection = $this->repository->findById($id);
 
-        if (null !== $projection) {
+        if ($projection !== null) {
             $this->unitOfWork->loadProjection($projection);
         }
 
@@ -161,7 +170,7 @@ final class ProjectProjector extends Projector
             fn (ProjectProjection $p) => $p->getId() === $id
         );
 
-        if (0 === count($projections)) {
+        if (count($projections) === 0) {
             return null;
         }
 

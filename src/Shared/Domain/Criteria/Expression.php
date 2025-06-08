@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Criteria;
 
+/**
+ * Class Expression
+ *
+ * @package App\Shared\Domain\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class Expression
 {
     private array $operands = [];
 
     public function __construct(Operand $operand = null)
     {
-        if (null !== $operand) {
+        if ($operand !== null) {
             $this->andOperand($operand);
         }
     }

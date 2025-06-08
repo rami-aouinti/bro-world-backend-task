@@ -6,7 +6,18 @@ namespace App\Shared\Infrastructure\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Shared\Domain\Collection\ManagedCollectionInterface;
+use LogicException;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionNamedType;
+use ReflectionObject;
 
+/**
+ * Class ManagedCollectionManager
+ *
+ * @package App\Shared\Infrastructure\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ManagedCollectionManager implements ManagedCollectionManagerInterface
 {
     public function __construct(private EntityManagerInterface $entityManager)
@@ -14,7 +25,7 @@ final readonly class ManagedCollectionManager implements ManagedCollectionManage
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function load(object $owner, string $propertyName, array $items): void
     {
@@ -28,7 +39,7 @@ final readonly class ManagedCollectionManager implements ManagedCollectionManage
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function flush(object $owner, string $propertyName): void
     {
@@ -47,20 +58,20 @@ final readonly class ManagedCollectionManager implements ManagedCollectionManage
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function getCollection(object $owner, string $propertyName): ManagedCollectionInterface
     {
-        $reflectionObject = new \ReflectionObject($owner);
+        $reflectionObject = new ReflectionObject($owner);
         $reflectionProperty = $reflectionObject->getProperty($propertyName);
         if (!$reflectionProperty->isInitialized($owner)) {
-            /** @var \ReflectionNamedType $type */
+            /** @var ReflectionNamedType $type */
             $type = $reflectionProperty->getType();
             $className = $type->getName();
             if (!is_a($className, ManagedCollectionInterface::class, true)) {
-                throw new \LogicException('Invalid type '.$className);
+                throw new LogicException('Invalid type '.$className);
             }
-            $reflectionClass = new \ReflectionClass($type->getName());
+            $reflectionClass = new ReflectionClass($type->getName());
             $reflectionProperty->setValue($owner, $reflectionClass->newInstanceWithoutConstructor());
         }
 

@@ -10,6 +10,12 @@ use App\Projections\Domain\Event\UserWasCreatedEvent;
 use App\Projections\Domain\Exception\ProjectionDoesNotExistException;
 use App\Projections\Domain\Repository\UserProjectionRepositoryInterface;
 
+/**
+ * Class UserProjector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class UserProjector extends Projector
 {
     /**
@@ -49,7 +55,7 @@ final class UserProjector extends Projector
         $id = $event->getAggregateId();
         $projection = $this->projections[$id] ?? $this->repository->findById($id);
 
-        if (null === $projection) {
+        if ($projection === null) {
             throw new ProjectionDoesNotExistException($id, UserProjection::class);
         }
 

@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Criteria;
 
+/**
+ * Class Criteria
+ *
+ * @package App\Shared\Domain\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class Criteria
 {
     private Expression $expression;

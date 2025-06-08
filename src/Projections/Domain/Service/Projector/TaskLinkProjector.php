@@ -15,7 +15,14 @@ use App\Projections\Domain\Repository\TaskLinkProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
 use App\Shared\Domain\Hashable;
+use Exception;
 
+/**
+ * Class TaskLinkProjector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskLinkProjector extends Projector
 {
     public function __construct(
@@ -46,12 +53,12 @@ final class TaskLinkProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenTaskLinkCreated(TaskLinkWasCreated $event): void
     {
         $taskProjection = $this->taskRepository->findById($event->linkedTaskId);
-        if (null === $taskProjection) {
+        if ($taskProjection === null) {
             throw new ProjectionDoesNotExistException($event->linkedTaskId, TaskProjection::class);
         }
 
@@ -70,7 +77,7 @@ final class TaskLinkProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenLinkedTaskInformationChanged(TaskInformationWasChangedEvent $event): void
     {
@@ -82,7 +89,7 @@ final class TaskLinkProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenLinkedTaskStatusChanged(TaskStatusWasChangedEvent $event): void
     {
@@ -100,7 +107,7 @@ final class TaskLinkProjector extends Projector
     {
         $projection = $this->repository->findByTaskAndLinkedTaskId($taskId, $linkedTaskId);
 
-        if (null !== $projection) {
+        if ($projection !== null) {
             $this->unitOfWork->loadProjection($projection);
         }
 

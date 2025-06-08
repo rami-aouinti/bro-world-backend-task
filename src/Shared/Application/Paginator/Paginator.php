@@ -7,6 +7,12 @@ namespace App\Shared\Application\Paginator;
 use App\Projections\Domain\Repository\PageableRepositoryInterface;
 use App\Shared\Domain\Criteria\Criteria;
 
+/**
+ * Class Paginator
+ *
+ * @package App\Shared\Application\Paginator
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class Paginator implements PaginatorInterface
 {
     public function paginate(PageableRepositoryInterface $repository, Criteria $criteria): Pagination

@@ -17,6 +17,12 @@ use App\Projections\Domain\Repository\UserProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
 use App\Shared\Domain\Hashable;
 
+/**
+ * Class ProjectParticipantProjector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectParticipantProjector extends Projector
 {
     public function __construct(
@@ -50,7 +56,7 @@ final class ProjectParticipantProjector extends Projector
     private function whenProjectParticipantAdded(ProjectParticipantWasAddedEvent $event): void
     {
         $userProjection = $this->userRepository->findById($event->participantId);
-        if (null === $userProjection) {
+        if ($userProjection === null) {
             throw new ProjectionDoesNotExistException($event->participantId, UserProjection::class);
         }
 
@@ -69,7 +75,7 @@ final class ProjectParticipantProjector extends Projector
     private function whenProjectParticipantRemoved(ProjectParticipantWasRemovedEvent $event): void
     {
         $projection = $this->getProjectionByProjectAndUserId($event->getAggregateId(), $event->participantId);
-        if (null === $projection) {
+        if ($projection === null) {
             return;
         }
 
@@ -88,7 +94,7 @@ final class ProjectParticipantProjector extends Projector
     private function whenTaskCreated(TaskWasCreatedEvent $event): void
     {
         $projection = $this->getProjectionByProjectAndUserId($event->projectId, $event->ownerId);
-        if (null === $projection) {
+        if ($projection === null) {
             return;
         }
 
@@ -116,7 +122,7 @@ final class ProjectParticipantProjector extends Projector
     {
         $projection = $this->repository->findByProjectAndUserId($projectId, $userId);
 
-        if (null !== $projection) {
+        if ($projection !== null) {
             $this->unitOfWork->loadProjection($projection);
         }
 

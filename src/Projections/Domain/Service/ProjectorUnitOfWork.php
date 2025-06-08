@@ -6,6 +6,12 @@ namespace App\Projections\Domain\Service;
 
 use App\Shared\Domain\Hashable;
 
+/**
+ * Class ProjectorUnitOfWork
+ *
+ * @package App\Projections\Domain\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectorUnitOfWork
 {
     /**
@@ -51,8 +57,8 @@ final class ProjectorUnitOfWork
      */
     public function findProjections(callable $callback): array
     {
-        return array_filter($this->projections, function ($value) use ($callback) {
-            return call_user_func($callback, $value);
+        return array_filter($this->projections, static function ($value) use ($callback) {
+            return $callback($value);
         });
     }
 
@@ -79,7 +85,7 @@ final class ProjectorUnitOfWork
 
     public function deleteProjection(?Hashable $projection): void
     {
-        if (null === $projection) {
+        if ($projection === null) {
             return;
         }
 

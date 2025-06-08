@@ -11,6 +11,12 @@ use App\Projections\Domain\Repository\ProjectListProjectionRepositoryInterface;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Infrastructure\Criteria\CriteriaFinderInterface;
 
+/**
+ * Class DoctrineProjectListProjectionRepository
+ *
+ * @package App\Projections\Infrastructure\Repository
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class DoctrineProjectListProjectionRepository implements ProjectListProjectionRepositoryInterface
 {
     public function __construct(

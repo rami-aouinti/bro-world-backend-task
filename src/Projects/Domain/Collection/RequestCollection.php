@@ -10,6 +10,12 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Collection\ManagedCollection;
 use App\General\Domain\ValueObject\UserId;
 
+/**
+ * Class RequestCollection
+ *
+ * @package App\Projects\Domain\Collection
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class RequestCollection extends ManagedCollection
 {
     public function ensureUserDoesNotHavePendingRequest(UserId $userId, ProjectId $projectId): void
@@ -24,7 +30,7 @@ final class RequestCollection extends ManagedCollection
             }
         }
 
-        if (null !== $request) {
+        if ($request !== null) {
             throw new UserAlreadyHasPendingRequestException($userId->value, $projectId->value);
         }
     }

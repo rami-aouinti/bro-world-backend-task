@@ -6,11 +6,22 @@ namespace App\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\Exception\InvalidTaskStatusTransitionException;
 use App\Projects\Domain\Exception\TaskModificationIsNotAllowedException;
+use LogicException;
 
+use function get_class;
+use function gettype;
+use function sprintf;
+
+/**
+ * Class TaskStatus
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 abstract class TaskStatus extends Status
 {
-    public const STATUS_CLOSED = 0;
-    public const STATUS_ACTIVE = 1;
+    public const int STATUS_CLOSED = 0;
+    public const int STATUS_ACTIVE = 1;
 
     public function getScalar(): int
     {
@@ -21,7 +32,7 @@ abstract class TaskStatus extends Status
             return self::STATUS_ACTIVE;
         }
 
-        throw new \LogicException(sprintf('Invalid type "%s" of task status', gettype($this)));
+        throw new LogicException(sprintf('Invalid type "%s" of task status', gettype($this)));
     }
 
     public static function createFromScalar(?int $status): static
@@ -33,7 +44,7 @@ abstract class TaskStatus extends Status
             return new ActiveTaskStatus();
         }
 
-        throw new \LogicException(sprintf('Invalid task status "%s"', gettype($status)));
+        throw new LogicException(sprintf('Invalid task status "%s"', gettype($status)));
     }
 
     public function ensureCanBeChangedTo(self $status): void

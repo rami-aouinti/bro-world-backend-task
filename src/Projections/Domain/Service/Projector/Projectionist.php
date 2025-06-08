@@ -7,7 +7,14 @@ namespace App\Projections\Domain\Service\Projector;
 use App\Projections\Domain\DTO\ProjectionistResultDTO;
 use App\Projections\Domain\Service\EventStore\EventStoreInterface;
 use App\Shared\Domain\Service\TransactionManagerInterface;
+use Exception;
 
+/**
+ * Class Projectionist
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class Projectionist implements ProjectionistInterface
 {
     private array $projectors;
@@ -27,7 +34,7 @@ final readonly class Projectionist implements ProjectionistInterface
     /**
      * @return ProjectionistResultDTO[]
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function projectAll(): array
     {
@@ -42,21 +49,21 @@ final readonly class Projectionist implements ProjectionistInterface
             $position = $this->positionHandler->getPosition($projector);
             $streamInfo = $this->eventStore->getStreamInfo($position);
 
-            if (0 === $streamInfo->stream->eventCount()) {
+            if ($streamInfo->stream->eventCount() === 0) {
                 $result[] = new ProjectionistResultDTO($projector::class, 0);
                 continue;
             }
 
             try {
                 $this->transactionManager->withTransaction(function () use ($streamInfo, $projector) {
-                    while (null !== $envelope = $streamInfo->stream->next()) {
+                    while ($envelope = $streamInfo->stream->next() !== null) {
                         $projector->projectWhen($envelope);
                     }
 
                     $this->positionHandler->storePosition($projector, $streamInfo->lastPosition);
                     $this->positionHandler->flushPosition($projector);
                 });
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->positionHandler->markAsBroken($projector);
                 $this->positionHandler->flushPosition($projector);
                 throw $e;
@@ -76,7 +83,7 @@ final readonly class Projectionist implements ProjectionistInterface
     private function prioritizeProjectors(iterable $projectorsGenerator): array
     {
         $projectors = [...$projectorsGenerator];
-        usort($projectors, function (ProjectorInterface $left, ProjectorInterface $right) {
+        usort($projectors, static function (ProjectorInterface $left, ProjectorInterface $right) {
             if ($left->priority() === $right->priority()) {
                 return 0;
             }

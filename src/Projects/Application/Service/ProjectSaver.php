@@ -9,6 +9,12 @@ use App\Projects\Domain\Repository\ProjectRepositoryInterface;
 use App\Shared\Application\OptimisticLock\OptimisticLockManagerInterface;
 use App\Shared\Domain\Service\TransactionManagerInterface;
 
+/**
+ * Class ProjectSaver
+ *
+ * @package App\Projects\Application\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ProjectSaver implements ProjectSaverInterface
 {
     public function __construct(

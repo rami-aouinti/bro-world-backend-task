@@ -13,6 +13,12 @@ use App\Shared\Application\Bus\Event\IntegrationEventBusInterface;
 use App\Shared\Domain\ValueObject\DateTime;
 use App\General\Domain\ValueObject\UserId;
 
+/**
+ * Class LimitTaskDatesOnProjectTaskFinishDateChanged
+ *
+ * @package App\Projects\Application\Subscriber
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class LimitTaskDatesOnProjectTaskFinishDateChanged implements DomainEventSubscriberInterface
 {
     public function __construct(

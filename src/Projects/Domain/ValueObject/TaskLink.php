@@ -8,6 +8,12 @@ use App\Projects\Domain\Exception\TasksOfTaskLinkAreEqualException;
 use App\Shared\Domain\Equatable;
 use App\Shared\Domain\Hashable;
 
+/**
+ * Class TaskLink
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskLink implements Equatable, Hashable
 {
     public function __construct(

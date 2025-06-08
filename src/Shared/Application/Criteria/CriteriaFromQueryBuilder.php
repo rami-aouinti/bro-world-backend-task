@@ -10,13 +10,19 @@ use App\Shared\Domain\Criteria\OperatorEnum;
 use App\Shared\Domain\Criteria\Order;
 use App\Shared\Domain\Exception\CriteriaFilterOperatorNotExistException;
 
+/**
+ * Class CriteriaFromQueryBuilder
+ *
+ * @package App\Shared\Application\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class CriteriaFromQueryBuilder implements CriteriaFromQueryBuilderInterface
 {
     public function build(Criteria $criteria, QueryCriteriaDTO $dto): Criteria
     {
         foreach ($dto->filters as $filter) {
             $operator = OperatorEnum::tryFrom(mb_strtolower($filter->operator));
-            if (null === $operator) {
+            if ($operator === null) {
                 throw new CriteriaFilterOperatorNotExistException($filter->operator, $filter->property);
             }
 

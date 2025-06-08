@@ -8,17 +8,25 @@ use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Criteria\Operand;
 use App\Shared\Domain\Exception\CriteriaFilterNotExistException;
 use App\Shared\Domain\Exception\CriteriaOrderNotExistException;
+use ReflectionClass;
+use ReflectionException;
 
+/**
+ * Class CriteriaFieldValidator
+ *
+ * @package App\Shared\Application\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class CriteriaFieldValidator implements CriteriaFieldValidatorInterface
 {
     /**
      * @param class-string $class
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function validate(Criteria $criteria, string $class): void
     {
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
         /**
          * @var Operand $operand
          */
@@ -35,7 +43,7 @@ final class CriteriaFieldValidator implements CriteriaFieldValidatorInterface
         }
     }
 
-    private function checkProperty(\ReflectionClass $reflection, string $propertyName): bool
+    private function checkProperty(ReflectionClass $reflection, string $propertyName): bool
     {
         return $reflection->hasProperty($propertyName);
     }

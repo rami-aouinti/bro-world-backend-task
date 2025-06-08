@@ -5,12 +5,23 @@ declare(strict_types=1);
 namespace App\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\Exception\InvalidProjectRequestStatusTransitionException;
+use LogicException;
 
+use function get_class;
+use function gettype;
+use function sprintf;
+
+/**
+ * Class RequestStatus
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 abstract class RequestStatus extends Status
 {
-    public const STATUS_PENDING = 0;
-    public const STATUS_CONFIRMED = 1;
-    public const STATUS_REJECTED = 2;
+    public const int STATUS_PENDING = 0;
+    public const int STATUS_CONFIRMED = 1;
+    public const int STATUS_REJECTED = 2;
 
     protected function getNextStatuses(): array
     {
@@ -34,7 +45,7 @@ abstract class RequestStatus extends Status
             return self::STATUS_REJECTED;
         }
 
-        throw new \LogicException(sprintf('Invalid type "%s" of project request status', gettype($this)));
+        throw new LogicException(sprintf('Invalid type "%s" of project request status', gettype($this)));
     }
 
     public static function createFromScalar(?int $status): static
@@ -49,7 +60,7 @@ abstract class RequestStatus extends Status
             return new RejectedRequestStatus();
         }
 
-        throw new \LogicException(sprintf('Invalid project request status "%s"', gettype($status)));
+        throw new LogicException(sprintf('Invalid project request status "%s"', gettype($status)));
     }
 
     public function ensureCanBeChangedTo(self $status): void

@@ -6,6 +6,14 @@ namespace App\Projects\Domain\Exception;
 
 use App\Shared\Domain\Exception\DomainException;
 
+use function sprintf;
+
+/**
+ * Class InvalidProjectRequestStatusTransitionException
+ *
+ * @package App\Projects\Domain\Exception
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class InvalidProjectRequestStatusTransitionException extends DomainException
 {
     public function __construct(string $fromStatus, string $toStatus)

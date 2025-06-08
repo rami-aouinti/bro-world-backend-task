@@ -5,21 +5,41 @@ declare(strict_types=1);
 namespace App\Projects\Infrastructure\Persistence\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType;
 use App\Projects\Domain\ValueObject\RequestChangeDate;
 
+/**
+ * Class RequestChangeDateType
+ *
+ * @package App\Projects\Infrastructure\Persistence\Doctrine
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class RequestChangeDateType extends DateTimeType
 {
-    private const TYPE_NAME = 'request_change_date';
+    private const string TYPE_NAME = 'request_change_date';
 
+    /**
+     * @param                  $value
+     * @param AbstractPlatform $platform
+     *
+     * @return RequestChangeDate
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform): RequestChangeDate
     {
         return new RequestChangeDate($value);
     }
 
+    /**
+     * @param                  $value
+     * @param AbstractPlatform $platform
+     *
+     * @throws ConversionException
+     * @return string|null
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if (null === $value) {
+        if ($value === null) {
             return null;
         }
 

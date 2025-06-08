@@ -7,6 +7,13 @@ namespace App\Projections\Domain\Service\EventStore;
 use App\Shared\Domain\Event\DomainEventInterface;
 
 // For development purposes only: app domains pretend to be microservices
+
+/**
+ * Class SimulateMicroserviceEventStreamFilter
+ *
+ * @package App\Projections\Domain\Service\EventStore
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class SimulateMicroserviceEventStreamFilter implements EventStreamFilterInterface
 {
     public function isSuitable(DomainEventInterface $domainEvent): bool
@@ -14,7 +21,7 @@ final class SimulateMicroserviceEventStreamFilter implements EventStreamFilterIn
         $eventDomain = explode('\\', $domainEvent::class)[1] ?? null;
         $projectionsDomain = explode('\\', self::class)[1] ?? null;
 
-        if (null === $eventDomain || null === $projectionsDomain) {
+        if ($eventDomain === null || $projectionsDomain === null) {
             return false;
         }
 

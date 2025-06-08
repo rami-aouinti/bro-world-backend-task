@@ -6,6 +6,9 @@ namespace App\Projections\Domain\Service\EventStore;
 
 use App\Projections\Domain\DTO\DomainEventEnvelope;
 
+/**
+ *
+ */
 interface EventStreamInterface
 {
     public function next(): ?DomainEventEnvelope;

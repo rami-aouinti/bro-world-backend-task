@@ -9,7 +9,16 @@ use App\Projections\Domain\DTO\EventStreamInfoDTO;
 use App\Projections\Domain\Repository\EventRepositoryInterface;
 use App\Shared\Domain\Service\DomainEventFactoryInterface;
 use App\Shared\Domain\ValueObject\DateTime;
+use Exception;
 
+use function count;
+
+/**
+ * Class EventStore
+ *
+ * @package App\Projections\Domain\Service\EventStore
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class EventStore implements EventStoreInterface
 {
     public function __construct(
@@ -20,7 +29,7 @@ final readonly class EventStore implements EventStoreInterface
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function getStreamInfo(?DateTime $lastDatetime): EventStreamInfoDTO
     {

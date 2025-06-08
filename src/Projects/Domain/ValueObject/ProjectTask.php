@@ -8,6 +8,12 @@ use App\Shared\Domain\Equatable;
 use App\Shared\Domain\Hashable;
 use App\General\Domain\ValueObject\UserId;
 
+/**
+ * Class ProjectTask
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ProjectTask implements Equatable, Hashable
 {
     public function __construct(

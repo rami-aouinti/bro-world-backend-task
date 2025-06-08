@@ -6,6 +6,12 @@ namespace App\Projects\Domain\ValueObject;
 
 use App\Shared\Domain\ValueObject\DateTime;
 
+/**
+ * Class TaskStartDate
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskStartDate extends DateTime
 {
 }

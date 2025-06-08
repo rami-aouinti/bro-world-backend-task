@@ -7,6 +7,9 @@ namespace App\Projections\Domain\Repository;
 use App\Projections\Domain\Entity\Event;
 use App\Shared\Domain\ValueObject\DateTime;
 
+/**
+ *
+ */
 interface EventRepositoryInterface
 {
     /**

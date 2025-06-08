@@ -6,6 +6,9 @@ namespace App\Projections\Domain\Repository;
 
 use App\Projections\Domain\Entity\UserProjection;
 
+/**
+ *
+ */
 interface UserProjectionRepositoryInterface
 {
     public function findById(string $id): ?UserProjection;

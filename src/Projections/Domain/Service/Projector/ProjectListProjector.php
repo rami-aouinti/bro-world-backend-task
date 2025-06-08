@@ -21,7 +21,14 @@ use App\Projections\Domain\Exception\ProjectionDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectListProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\UserProjectionRepositoryInterface;
 use App\Projections\Domain\Service\ProjectorUnitOfWork;
+use Exception;
 
+/**
+ * Class ProjectListProjector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectListProjector extends Projector
 {
     public function __construct(
@@ -47,12 +54,12 @@ final class ProjectListProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenProjectCreated(ProjectWasCreatedEvent $event): void
     {
         $ownerProjection = $this->userRepository->findById($event->ownerId);
-        if (null === $ownerProjection) {
+        if ($ownerProjection === null) {
             throw new ProjectionDoesNotExistException($event->ownerId, UserProjection::class);
         }
 
@@ -72,7 +79,7 @@ final class ProjectListProjector extends Projector
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function whenProjectInformationChanged(ProjectInformationWasChangedEvent $event): void
     {
@@ -88,7 +95,7 @@ final class ProjectListProjector extends Projector
         $projections = $this->getProjectionsById($event->getAggregateId());
 
         $userProjection = $this->userRepository->findById($event->ownerId);
-        if (null === $userProjection) {
+        if ($userProjection === null) {
             throw new ProjectionDoesNotExistException($event->ownerId, UserProjection::class);
         }
 

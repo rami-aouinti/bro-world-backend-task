@@ -5,11 +5,20 @@ declare(strict_types=1);
 namespace App\Projections\Domain\Service\Projector;
 
 use App\Projections\Domain\DTO\DomainEventEnvelope;
+use ReflectionException;
+use ReflectionNamedType;
+use ReflectionObject;
 
+/**
+ * Class Projector
+ *
+ * @package App\Projections\Domain\Service\Projector
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 abstract class Projector implements ProjectorInterface
 {
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function projectWhen(DomainEventEnvelope $envelope): void
     {
@@ -22,14 +31,14 @@ abstract class Projector implements ProjectorInterface
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function invokeSuitableMethods(DomainEventEnvelope $envelope): void
     {
-        $reflectionObject = new \ReflectionObject($this);
+        $reflectionObject = new ReflectionObject($this);
 
         foreach ($reflectionObject->getMethods() as $method) {
-            if ('projectWhen' === $method->getName()) {
+            if ($method->getName() === 'projectWhen') {
                 continue;
             }
             $numberOfParameters = $method->getNumberOfParameters();
@@ -38,7 +47,7 @@ abstract class Projector implements ProjectorInterface
             }
 
             $firstParameterType = $method->getParameters()[0]->getType();
-            if (!($firstParameterType instanceof \ReflectionNamedType)) {
+            if (!($firstParameterType instanceof ReflectionNamedType)) {
                 continue;
             }
 

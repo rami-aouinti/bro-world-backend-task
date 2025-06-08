@@ -6,6 +6,12 @@ namespace App\Projections\Domain\Exception;
 
 use App\Shared\Domain\Exception\DomainException;
 
+/**
+ * Class ObjectDoesNotExistException
+ *
+ * @package App\Projections\Domain\Exception
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ObjectDoesNotExistException extends DomainException
 {
     public function __construct(string $message)

@@ -6,6 +6,14 @@ namespace App\Projections\Domain\Exception;
 
 use App\Shared\Domain\Exception\DomainException;
 
+use function sprintf;
+
+/**
+ * Class ProjectionDoesNotExistException
+ *
+ * @package App\Projections\Domain\Exception
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectionDoesNotExistException extends DomainException
 {
     /**

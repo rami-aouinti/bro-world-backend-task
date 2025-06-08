@@ -9,6 +9,12 @@ use App\Projects\Domain\Exception\ProjectDoesNotExistException;
 use App\Projects\Domain\Repository\ProjectRepositoryInterface;
 use App\Projects\Domain\ValueObject\ProjectId;
 
+/**
+ * Class ProjectFinder
+ *
+ * @package App\Projects\Application\Service
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class ProjectFinder implements ProjectFinderInterface
 {
     public function __construct(private ProjectRepositoryInterface $repository)
@@ -18,7 +24,7 @@ final readonly class ProjectFinder implements ProjectFinderInterface
     public function find(ProjectId $id): Project
     {
         $project = $this->repository->findById($id);
-        if (null === $project) {
+        if ($project === null) {
             throw new ProjectDoesNotExistException($id->value);
         }
 

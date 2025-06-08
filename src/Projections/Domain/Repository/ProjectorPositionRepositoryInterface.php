@@ -6,6 +6,9 @@ namespace App\Projections\Domain\Repository;
 
 use App\Projections\Domain\Entity\ProjectorPosition;
 
+/**
+ *
+ */
 interface ProjectorPositionRepositoryInterface
 {
     public function findByProjectorName(string $name): ?ProjectorPosition;

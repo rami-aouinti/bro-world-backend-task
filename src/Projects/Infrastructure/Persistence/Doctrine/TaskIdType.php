@@ -8,15 +8,33 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 use App\Projects\Domain\ValueObject\TaskId;
 
+/**
+ * Class TaskIdType
+ *
+ * @package App\Projects\Infrastructure\Persistence\Doctrine
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TaskIdType extends StringType
 {
-    private const TYPE_NAME = 'task_id';
+    private const string TYPE_NAME = 'task_id';
 
+    /**
+     * @param                  $value
+     * @param AbstractPlatform $platform
+     *
+     * @return TaskId
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform): TaskId
     {
         return new TaskId($value);
     }
 
+    /**
+     * @param                  $value
+     * @param AbstractPlatform $platform
+     *
+     * @return string
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
         return $value->value;

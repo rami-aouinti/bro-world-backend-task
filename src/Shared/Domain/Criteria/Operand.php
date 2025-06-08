@@ -4,6 +4,19 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Criteria;
 
+use LogicException;
+
+use function gettype;
+use function in_array;
+use function is_array;
+use function sprintf;
+
+/**
+ * Class Operand
+ *
+ * @package App\Shared\Domain\Criteria
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class Operand
 {
     public function __construct(
@@ -16,9 +29,9 @@ final readonly class Operand
 
     private function ensureIsValidValueType(OperatorEnum $operator, mixed $value): void
     {
-        $isArrayOperator = in_array($operator, [OperatorEnum::In, OperatorEnum::NotIn]);
-        if ($isArrayOperator && !is_array($value) || !$isArrayOperator && is_array($value)) {
-            throw new \LogicException(sprintf('Invalid criteria value type "%s"', gettype($value)));
+        $isArrayOperator = in_array($operator, [OperatorEnum::In, OperatorEnum::NotIn], true);
+        if (($isArrayOperator && !is_array($value)) || (!$isArrayOperator && is_array($value))) {
+            throw new LogicException(sprintf('Invalid criteria value type "%s"', gettype($value)));
         }
     }
 }

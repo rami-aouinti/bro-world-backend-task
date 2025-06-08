@@ -8,6 +8,12 @@ use App\Projects\Domain\Exception\UserIsNotTaskOwnerException;
 use App\Shared\Domain\Equatable;
 use App\General\Domain\ValueObject\UserId;
 
+/**
+ * Class TaskOwner
+ *
+ * @package App\Projects\Domain\ValueObject
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class TaskOwner implements Equatable
 {
     public function __construct(
