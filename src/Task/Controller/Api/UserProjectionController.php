@@ -36,7 +36,7 @@ final readonly class UserProjectionController
     ) {
     }
 
-    #[Route('/api/users', name: 'getInfo', methods: ['GET'])]
+    #[Route('/api/users', name: 'user.getInfo', methods: ['GET'])]
     public function getInfo(): JsonResponse
     {
         $user = $this->queryBus->dispatch(new UserProfileQuery());
@@ -44,7 +44,7 @@ final readonly class UserProjectionController
         return new JsonResponse(UserResponseDTO::create($user));
     }
 
-    #[Route('/api/users/requests', name: 'getAllRequests', methods: ['GET'])]
+    #[Route('/api/users/requests', name: 'user.getAllRequests', methods: ['GET'])]
     public function getAllRequests(RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
@@ -58,7 +58,7 @@ final readonly class UserProjectionController
         ));
     }
 
-    #[Route('/api/users/projects', name: 'getAllProjects', methods: ['GET'])]
+    #[Route('/api/users/projects', name: 'user.getAllProjects', methods: ['GET'])]
     public function getAllProjects(RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */

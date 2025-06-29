@@ -60,7 +60,7 @@ final readonly class ProjectProjectionController
         return new JsonResponse(ProjectResponseDTO::create($project));
     }
 
-    #[Route('/api/projects/{id}/requests', name: 'getAllRequests', methods: ['GET'])]
+    #[Route('/api/projects/{id}/requests', name: 'projects.getAllRequests', methods: ['GET'])]
     public function getAllRequests(string $id, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */

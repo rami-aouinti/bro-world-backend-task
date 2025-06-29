@@ -41,7 +41,7 @@ final readonly class ProjectController
     ) {
     }
 
-    #[Route('/api/projects', name: 'create', methods: ['POST'])]
+    #[Route('/api/projects', name: 'projects.create', methods: ['POST'])]
     public function create(Request $request, SymfonyUser $symfonyUser): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -64,7 +64,7 @@ final readonly class ProjectController
         return new JsonResponse(['id' => $command->id], Response::HTTP_CREATED);
     }
 
-    #[Route('/api/projects/{id}', name: 'update', methods: ['PATCH'])]
+    #[Route('/api/projects/{id}', name: 'projects.update', methods: ['PATCH'])]
     public function update(string $id, ProjectInformationDTO $dto): JsonResponse
     {
         $command = new ChangeProjectInformationCommand(
@@ -82,7 +82,7 @@ final readonly class ProjectController
         ]);
     }
 
-    #[Route('/api/projects/{id}/activate', name: 'activate', methods: ['PATCH'])]
+    #[Route('/api/projects/{id}/activate', name: 'projects.activate', methods: ['PATCH'])]
     public function activate(string $id): JsonResponse
     {
         $command = new ActivateProjectCommand($id);
@@ -92,7 +92,7 @@ final readonly class ProjectController
         return new JsonResponse();
     }
 
-    #[Route('/api/projects/{id}/close', name: 'close', methods: ['PATCH'])]
+    #[Route('/api/projects/{id}/close', name: 'projects.close', methods: ['PATCH'])]
     public function close(string $id): JsonResponse
     {
         $command = new CloseProjectCommand($id);
@@ -102,7 +102,7 @@ final readonly class ProjectController
         return new JsonResponse();
     }
 
-    #[Route('/api/projects/{id}/change-owner/{ownerId}', name: 'changeOwner', methods: ['PATCH'])]
+    #[Route('/api/projects/{id}/change-owner/{ownerId}', name: 'projects.changeOwner', methods: ['PATCH'])]
     public function changeOwner(string $id, string $ownerId): JsonResponse
     {
         $command = new ChangeProjectOwnerCommand($id, $ownerId);
@@ -112,7 +112,7 @@ final readonly class ProjectController
         return new JsonResponse();
     }
 
-    #[Route('/api/projects/{id}/participants/{participantId}', name: 'removeParticipant', methods: ['DELETE'])]
+    #[Route('/api/projects/{id}/participants/{participantId}', name: 'projects.removeParticipant', methods: ['DELETE'])]
     public function removeParticipant(string $id, string $participantId): JsonResponse
     {
         $command = new RemoveParticipantCommand($id, $participantId);
@@ -122,7 +122,7 @@ final readonly class ProjectController
         return new JsonResponse();
     }
 
-    #[Route('/api/projects/{id}/leave', name: 'leave', methods: ['PATCH'])]
+    #[Route('/api/projects/{id}/leave', name: 'projects.leave', methods: ['PATCH'])]
     public function leave(string $id): JsonResponse
     {
         $command = new LeaveCommand($id);
@@ -132,7 +132,7 @@ final readonly class ProjectController
         return new JsonResponse();
     }
 
-    #[Route('/api/projects/{id}/requests', name: 'createRequest', methods: ['POST'])]
+    #[Route('/api/projects/{id}/requests', name: 'projects.createRequest', methods: ['POST'])]
     public function createRequest(string $id): JsonResponse
     {
         $command = new CreateRequestCommand(
@@ -145,7 +145,7 @@ final readonly class ProjectController
         return new JsonResponse(['id' => $command->id], Response::HTTP_CREATED);
     }
 
-    #[Route('/api/projects/{id}/requests/{requestId}/confirm', name: 'confirmRequest', methods: ['PATCH'])]
+    #[Route('/api/projects/{id}/requests/{requestId}/confirm', name: 'projects.confirmRequest', methods: ['PATCH'])]
     public function confirmRequest(string $id, string $requestId): JsonResponse
     {
         $command = new ConfirmRequestCommand(
@@ -158,7 +158,7 @@ final readonly class ProjectController
         return new JsonResponse();
     }
 
-    #[Route('/api/projects/{id}/requests/{requestId}/reject', name: 'rejectRequest', methods: ['PATCH'])]
+    #[Route('/api/projects/{id}/requests/{requestId}/reject', name: 'projects.rejectRequest', methods: ['PATCH'])]
     public function rejectRequest(string $id, string $requestId): JsonResponse
     {
         $command = new RejectRequestCommand(
@@ -171,7 +171,7 @@ final readonly class ProjectController
         return new JsonResponse();
     }
 
-    #[Route('/api/projects/{id}/tasks', name: 'createTask', methods: ['POST'])]
+    #[Route('/api/projects/{id}/tasks', name: 'projects.createTask', methods: ['POST'])]
     public function createTask(string $id, TaskInformationDTO $dto): JsonResponse
     {
         $command = new CreateTaskCommand(

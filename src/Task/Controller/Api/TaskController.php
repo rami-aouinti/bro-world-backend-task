@@ -25,7 +25,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
 #[AsController]
-#[Route('/api/tasks', name: 'task.')]
 final readonly class TaskController
 {
     public function __construct(
@@ -33,7 +32,7 @@ final readonly class TaskController
     ) {
     }
 
-    #[Route('/{id}/', name: 'update', methods: ['PATCH'])]
+    #[Route('/api/tasks/{id}', name: 'task.update', methods: ['PATCH'])]
     public function update(string $id, TaskInformationDTO $dto): JsonResponse
     {
         $command = new ChangeTaskInformationCommand(
@@ -53,7 +52,7 @@ final readonly class TaskController
         ]);
     }
 
-    #[Route('/{id}/activate/', name: 'activate', methods: ['PATCH'])]
+    #[Route('/api/tasks/{id}/activate', name: 'task.activate', methods: ['PATCH'])]
     public function activate(string $id): JsonResponse
     {
         $command = new ActivateTaskCommand($id);
@@ -63,7 +62,7 @@ final readonly class TaskController
         return new JsonResponse();
     }
 
-    #[Route('/{id}/close/', name: 'close', methods: ['PATCH'])]
+    #[Route('/api/tasks/{id}/close', name: 'task.close', methods: ['PATCH'])]
     public function close(string $id): JsonResponse
     {
         $command = new CloseTaskCommand($id);
@@ -73,7 +72,7 @@ final readonly class TaskController
         return new JsonResponse();
     }
 
-    #[Route('/{id}/links/{linkedTaskId}/', name: 'createLink', methods: ['POST'])]
+    #[Route('/api/tasks/{id}/links/{linkedTaskId}', name: 'task.createLink', methods: ['POST'])]
     public function createLink(string $id, string $linkedTaskId): JsonResponse
     {
         $command = new CreateTaskLinkCommand($id, $linkedTaskId);
@@ -83,7 +82,7 @@ final readonly class TaskController
         return new JsonResponse(null, Response::HTTP_CREATED);
     }
 
-    #[Route('/{id}/links/{linkedTaskId}/', name: 'deleteLink', methods: ['DELETE'])]
+    #[Route('/api/tasks/{id}/links/{linkedTaskId}', name: 'task.deleteLink', methods: ['DELETE'])]
     public function deleteLink(string $id, string $linkedTaskId): JsonResponse
     {
         $command = new DeleteTaskLinkCommand($id, $linkedTaskId);

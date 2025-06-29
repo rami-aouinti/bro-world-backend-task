@@ -26,7 +26,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
 #[AsController]
-#[Route('/api/tasks', name: 'task.')]
 final readonly class TaskProjectionController
 {
     public function __construct(
@@ -35,7 +34,7 @@ final readonly class TaskProjectionController
     ) {
     }
 
-    #[Route('/{id}/', name: 'get', methods: ['GET'])]
+    #[Route('/api/tasks/{id}', name: 'task.get', methods: ['GET'])]
     public function get(string $id): JsonResponse
     {
         $task = $this->queryBus->dispatch(new TaskQuery($id));
@@ -43,7 +42,7 @@ final readonly class TaskProjectionController
         return new JsonResponse(TaskResponseDTO::create($task));
     }
 
-    #[Route('/{id}/links/', name: 'getAllLinks', methods: ['GET'])]
+    #[Route('/api/tasks/{id}/links', name: 'task.getAllLinks', methods: ['GET'])]
     public function getAllLinks(string $id, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
