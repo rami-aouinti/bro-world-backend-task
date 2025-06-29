@@ -2,21 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Task\Controller;
+namespace App\Task\Controller\Api;
 
-use Nelmio\ApiDocBundle\Attribute\Model;
-use OpenApi\Attributes as OA;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\General\Application\Bus\Command\CommandBusInterface;
 use App\Projects\Application\Command\ActivateTaskCommand;
 use App\Projects\Application\Command\ChangeTaskInformationCommand;
 use App\Projects\Application\Command\CloseTaskCommand;
 use App\Projects\Application\Command\CreateTaskLinkCommand;
 use App\Projects\Application\Command\DeleteTaskLinkCommand;
 use App\Projects\Infrastructure\Service\DTO\TaskInformationDTO;
-use App\General\Application\Bus\Command\CommandBusInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -28,7 +26,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  */
 #[AsController]
 #[Route('/api/tasks', name: 'task.')]
-#[IsGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)]
 final readonly class TaskController
 {
     public function __construct(

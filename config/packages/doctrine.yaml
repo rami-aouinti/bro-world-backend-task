@@ -26,6 +26,11 @@ doctrine:
             tm_datetime: App\General\Infrastructure\Persistence\Doctrine\DateTimeType
             user_id: App\General\Infrastructure\Persistence\Doctrine\UserIdType
 
+            user_email: App\Projects\Infrastructure\Persistence\Doctrine\UserEmailType
+            user_firstname: App\Projects\Infrastructure\Persistence\Doctrine\UserFirstnameType
+            user_lastname: App\Projects\Infrastructure\Persistence\Doctrine\UserLastnameType
+            user_password: App\Projects\Infrastructure\Persistence\Doctrine\UserPasswordType
+
             project_id: App\Projects\Infrastructure\Persistence\Doctrine\ProjectIdType
             project_name: App\Projects\Infrastructure\Persistence\Doctrine\ProjectNameType
             project_description: App\Projects\Infrastructure\Persistence\Doctrine\ProjectDescriptionType

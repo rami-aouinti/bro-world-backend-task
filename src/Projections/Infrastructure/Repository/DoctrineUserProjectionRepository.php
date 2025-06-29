@@ -9,6 +9,12 @@ use Doctrine\Persistence\ObjectRepository;
 use App\Projections\Domain\Entity\UserProjection;
 use App\Projections\Domain\Repository\UserProjectionRepositoryInterface;
 
+/**
+ * Class DoctrineUserProjectionRepository
+ *
+ * @package App\Projections\Infrastructure\Repository
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class DoctrineUserProjectionRepository implements UserProjectionRepositoryInterface
 {
     public function __construct(

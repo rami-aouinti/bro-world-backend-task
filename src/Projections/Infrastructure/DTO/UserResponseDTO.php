@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Infrastructure\DTO;
 
+use App\General\Infrastructure\ValueObject\SymfonyUser;
 use OpenApi\Attributes as OA;
 use App\Projections\Domain\DTO\UserMemento;
 use App\Projections\Domain\Entity\UserProjection;
@@ -35,7 +36,7 @@ final readonly class UserResponseDTO
         $this->version = $memento->version;
     }
 
-    public static function create(UserProjection $projection): self
+    public static function create(SymfonyUser $projection): self
     {
         return new self($projection->createMemento());
     }

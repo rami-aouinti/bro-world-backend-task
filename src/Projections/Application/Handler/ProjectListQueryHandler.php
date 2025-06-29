@@ -12,6 +12,7 @@ use App\General\Domain\Criteria\Criteria;
 use App\General\Domain\Criteria\Order;
 use App\Projections\Application\Query\ProjectListQuery;
 use App\Projections\Domain\Repository\ProjectListProjectionRepositoryInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**
  * Class ProjectListQueryHandler
@@ -19,6 +20,7 @@ use App\Projections\Domain\Repository\ProjectListProjectionRepositoryInterface;
  * @package App\Projections\Application\Handler
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
+#[AsMessageHandler]
 final readonly class ProjectListQueryHandler implements QueryHandlerInterface
 {
     public function __construct(

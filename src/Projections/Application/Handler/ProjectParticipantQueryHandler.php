@@ -8,6 +8,7 @@ use App\General\Application\Bus\Query\QueryHandlerInterface;
 use App\General\Application\Criteria\CriteriaFromQueryBuilderInterface;
 use App\General\Application\Paginator\Pagination;
 use App\General\Application\Paginator\PaginatorInterface;
+use App\General\Application\Service\CurrentUserExtractorInterface;
 use App\General\Domain\Criteria\Criteria;
 use App\General\Domain\Criteria\Operand;
 use App\General\Domain\Criteria\OperatorEnum;
@@ -19,6 +20,8 @@ use App\Projections\Domain\Exception\ObjectDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectParticipantProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
 use function sprintf;
 
 /**
@@ -27,23 +30,25 @@ use function sprintf;
  * @package App\Projections\Application\Handler
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
+#[AsMessageHandler]
 final readonly class ProjectParticipantQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private ProjectParticipantProjectionRepositoryInterface $repository,
         private ProjectProjectionRepositoryInterface $projectRepository,
         private CriteriaFromQueryBuilderInterface $criteriaBuilder,
-        private PaginatorInterface $paginator
+        private PaginatorInterface $paginator,
+        private CurrentUserExtractorInterface $userExtractor
     ) {
     }
 
-    public function __invoke(ProjectParticipantQuery $query, SymfonyUser $user): Pagination
+    public function __invoke(ProjectParticipantQuery $query): Pagination
     {
         $projectById = $this->projectRepository->findById($query->projectId);
         if ($projectById === null) {
             throw new ObjectDoesNotExistException(sprintf('Project "%s" does not exist.', $query->projectId));
         }
-
+        $user = $this->userExtractor->extract();
         $project = $this->projectRepository->findByIdAndUserId($query->projectId, $user->getUserIdentifier());
         if ($project === null) {
             throw new InsufficientPermissionsException(

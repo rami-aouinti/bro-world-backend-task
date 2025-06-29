@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Task\Controller;
+namespace App\Task\Controller\Api;
 
 use App\General\Application\Bus\Query\QueryBusInterface;
 use App\General\Application\Paginator\Pagination;
@@ -17,7 +17,7 @@ use App\Projections\Infrastructure\DTO\UserRequestResponseDTO;
 use App\Projections\Infrastructure\DTO\UserResponseDTO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -28,8 +28,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
 #[AsController]
-#[Route('/api/users', name: 'user.')]
-#[IsGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)]
 final readonly class UserProjectionController
 {
     public function __construct(
@@ -38,7 +36,7 @@ final readonly class UserProjectionController
     ) {
     }
 
-    #[Route('/', name: 'getInfo', methods: ['GET'])]
+    #[Route('/api/users', name: 'getInfo', methods: ['GET'])]
     public function getInfo(): JsonResponse
     {
         $user = $this->queryBus->dispatch(new UserProfileQuery());
@@ -46,7 +44,7 @@ final readonly class UserProjectionController
         return new JsonResponse(UserResponseDTO::create($user));
     }
 
-    #[Route('/requests/', name: 'getAllRequests', methods: ['GET'])]
+    #[Route('/api/users/requests', name: 'getAllRequests', methods: ['GET'])]
     public function getAllRequests(RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
@@ -60,7 +58,7 @@ final readonly class UserProjectionController
         ));
     }
 
-    #[Route('/projects/', name: 'getAllProjects', methods: ['GET'])]
+    #[Route('/api/users/projects', name: 'getAllProjects', methods: ['GET'])]
     public function getAllProjects(RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */

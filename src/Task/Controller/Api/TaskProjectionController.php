@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Task\Controller;
+namespace App\Task\Controller\Api;
 
 use App\General\Application\Bus\Query\QueryBusInterface;
 use App\General\Application\Paginator\Pagination;
@@ -15,7 +15,7 @@ use App\Projections\Infrastructure\DTO\TaskLinkResponseDTO;
 use App\Projections\Infrastructure\DTO\TaskResponseDTO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -27,7 +27,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  */
 #[AsController]
 #[Route('/api/tasks', name: 'task.')]
-#[IsGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)]
 final readonly class TaskProjectionController
 {
     public function __construct(

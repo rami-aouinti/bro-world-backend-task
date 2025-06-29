@@ -6,6 +6,7 @@ namespace App\Projections\Application\Query;
 
 use App\General\Application\Bus\Query\QueryInterface;
 use App\General\Application\Criteria\QueryCriteriaDTO;
+use App\General\Infrastructure\ValueObject\SymfonyUser;
 
 /**
  * Class UserProjectQuery
@@ -13,7 +14,7 @@ use App\General\Application\Criteria\QueryCriteriaDTO;
  * @package App\Projections\Application\Query
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-final class UserProjectQuery implements QueryInterface
+final readonly class UserProjectQuery implements QueryInterface
 {
     public function __construct(
         public QueryCriteriaDTO $criteria

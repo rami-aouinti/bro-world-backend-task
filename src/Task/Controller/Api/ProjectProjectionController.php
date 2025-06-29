@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Task\Controller;
+namespace App\Task\Controller\Api;
 
 use App\General\Application\Bus\Query\QueryBusInterface;
 use App\General\Application\Paginator\Pagination;
 use App\General\Infrastructure\Criteria\QueryCriteriaFromRequestConverterInterface;
 use App\General\Infrastructure\Criteria\RequestCriteriaDTO;
 use App\General\Infrastructure\Paginator\PaginationResponseDTO;
-use App\General\Infrastructure\ValueObject\SymfonyUser;
 use App\Projections\Application\Query\ProjectListQuery;
 use App\Projections\Application\Query\ProjectParticipantQuery;
 use App\Projections\Application\Query\ProjectQuery;
@@ -22,7 +21,7 @@ use App\Projections\Infrastructure\DTO\ProjectResponseDTO;
 use App\Projections\Infrastructure\DTO\TaskListResponseDTO;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Class ProjectProjectionController
@@ -31,7 +30,6 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
 #[AsController]
-#[Route('/api/projects', name: 'project.')]
 final readonly class ProjectProjectionController
 {
     public function __construct(
@@ -40,8 +38,8 @@ final readonly class ProjectProjectionController
     ) {
     }
 
-    #[Route('/', name: 'getAll', methods: ['GET'])]
-    public function __invoke(RequestCriteriaDTO $criteria, SymfonyUser $user): JsonResponse
+    #[Route('/api/projects', name: 'projects.getAll', methods: ['GET'])]
+    public function __invoke(RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
         $pagination = $this->queryBus->dispatch(
@@ -54,7 +52,7 @@ final readonly class ProjectProjectionController
         ));
     }
 
-    #[Route('/{id}/', name: 'get', methods: ['GET'])]
+    #[Route('/api/projects/{id}', name: 'projects.get', methods: ['GET'])]
     public function get(string $id): JsonResponse
     {
         $project = $this->queryBus->dispatch(new ProjectQuery($id));
@@ -62,7 +60,7 @@ final readonly class ProjectProjectionController
         return new JsonResponse(ProjectResponseDTO::create($project));
     }
 
-    #[Route('/{id}/requests/', name: 'getAllRequests', methods: ['GET'])]
+    #[Route('/api/projects/{id}/requests', name: 'getAllRequests', methods: ['GET'])]
     public function getAllRequests(string $id, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
@@ -76,7 +74,7 @@ final readonly class ProjectProjectionController
         ));
     }
 
-    #[Route('/{id}/tasks/', name: 'getAllTasks', methods: ['GET'])]
+    #[Route('/api/projects/{id}/tasks', name: 'projects.getAllTasks', methods: ['GET'])]
     public function getAllTasks(string $id, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */
@@ -90,7 +88,7 @@ final readonly class ProjectProjectionController
         ));
     }
 
-    #[Route('/{id}/participants/', name: 'getAllParticipants', methods: ['GET'])]
+    #[Route('/api/projects/{id}/participants', name: 'projects.getAllParticipants', methods: ['GET'])]
     public function getAllParticipants(string $id, RequestCriteriaDTO $criteria): JsonResponse
     {
         /** @var Pagination $pagination */

@@ -334,6 +334,12 @@ else
 	$(ERROR_ONLY_FOR_HOST)
 endif
 
+prepare: ## Initializes transports for Symfony Messenger bundle
+	@make exec cmd="composer prepare"
+
+clean: ## Initializes transports for Symfony Messenger bundle
+	@make exec cmd="php bin/console cache:clear"
+
 drop-migrate: ## Drops databases and runs all migrations for the main/test databases
 	@make exec cmd="php bin/console doctrine:schema:drop --full-database --force"
 	@make exec cmd="php bin/console doctrine:schema:drop --full-database --force --env=test"

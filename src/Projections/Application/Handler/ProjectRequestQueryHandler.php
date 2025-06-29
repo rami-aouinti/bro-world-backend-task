@@ -8,6 +8,7 @@ use App\General\Application\Bus\Query\QueryHandlerInterface;
 use App\General\Application\Criteria\CriteriaFromQueryBuilderInterface;
 use App\General\Application\Paginator\Pagination;
 use App\General\Application\Paginator\PaginatorInterface;
+use App\General\Application\Service\CurrentUserExtractorInterface;
 use App\General\Domain\Criteria\Criteria;
 use App\General\Domain\Criteria\Operand;
 use App\General\Domain\Criteria\OperatorEnum;
@@ -19,6 +20,8 @@ use App\Projections\Domain\Exception\ObjectDoesNotExistException;
 use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\ProjectRequestProjectionRepositoryInterface;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
 use function sprintf;
 
 /**
@@ -27,18 +30,21 @@ use function sprintf;
  * @package App\Projections\Application\Handler
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
+#[AsMessageHandler]
 final readonly class ProjectRequestQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private ProjectRequestProjectionRepositoryInterface $repository,
         private ProjectProjectionRepositoryInterface $projectRepository,
         private CriteriaFromQueryBuilderInterface $criteriaBuilder,
-        private PaginatorInterface $paginator
+        private PaginatorInterface $paginator,
+        private CurrentUserExtractorInterface $userExtractor
     ) {
     }
 
-    public function __invoke(SymfonyUser $user, ProjectRequestQuery $query): Pagination
+    public function __invoke(ProjectRequestQuery $query): Pagination
     {
+        $user = $this->userExtractor->extract();
         $project = $this->projectRepository->findById($query->projectId);
         if ($project === null) {
             throw new ObjectDoesNotExistException(sprintf('Project "%s" does not exist.', $query->projectId));

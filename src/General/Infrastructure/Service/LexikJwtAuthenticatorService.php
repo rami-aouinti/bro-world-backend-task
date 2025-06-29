@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace App\General\Infrastructure\Service;
 
+use App\Projections\Domain\Entity\UserProjection;
+use App\Projects\Domain\Entity\User;
+use App\Projects\Domain\ValueObject\UserEmail;
+use App\Projects\Domain\ValueObject\UserFirstname;
+use App\Projects\Domain\ValueObject\UserLastname;
+use App\Projects\Domain\ValueObject\UserPassword;
+use App\Projects\Domain\ValueObject\UserProfile;
+use App\Projects\Infrastructure\Repository\DoctrineUserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface;
@@ -28,7 +36,9 @@ use function sprintf;
 final class LexikJwtAuthenticatorService implements AuthenticatorServiceInterface, EventSubscriberInterface
 {
     private ?string $userId = null;
-    private ?string $fullName = null;
+    private ?string $email = null;
+    private ?string $firstName = null;
+    private ?string $lastName = null;
     private ?string $avatar = null;
     private ?array $roles = null;
     private ?string $pathRegexp = null;
@@ -36,6 +46,7 @@ final class LexikJwtAuthenticatorService implements AuthenticatorServiceInterfac
     public function __construct(
         private readonly JWTTokenManagerInterface $tokenManager,
         private readonly TokenExtractorInterface $tokenExtractor,
+        private readonly DoctrineUserRepository $repository,
         private readonly string $path
     ) {
         $this->configurePathRegexp();
@@ -50,7 +61,9 @@ final class LexikJwtAuthenticatorService implements AuthenticatorServiceInterfac
     {
         return new SymfonyUser(
             $this->userId,
-            $this->fullName,
+            $this->email,
+            $this->firstName,
+            $this->lastName,
             $this->avatar,
             $this->roles
         );
@@ -58,7 +71,7 @@ final class LexikJwtAuthenticatorService implements AuthenticatorServiceInterfac
 
     public function getToken(string $id): ?string
     {
-        return $this->tokenManager->create(new SymfonyUser($id, '', '', []));
+        return $this->tokenManager->create(new SymfonyUser($id, $this->email, $this->firstName, $this->lastName, $this->avatar,[]));
     }
 
     public static function getSubscribedEvents(): array
@@ -75,6 +88,25 @@ final class LexikJwtAuthenticatorService implements AuthenticatorServiceInterfac
         try {
             $payload = $this->extractTokenPayloadFromRequest($event->getRequest());
             $this->userId = $payload['id'];
+            $this->email = $payload['email'];
+            $this->firstName = $payload['firstName'];
+            $this->lastName = $payload['lastName'];
+            $this->avatar = $payload['avatar'];
+            $this->roles = $payload['roles'];
+
+            if(!$this->repository->findById(new UserId($this->userId))) {
+                $userProjection = new User(
+                    new UserId($this->userId),
+                    new UserEmail($this->email),
+                    new UserProfile(
+                        new UserFirstname($this->firstName),
+                        new UserLastname($this->lastName),
+                        new UserPassword($this->userId)
+                    )
+                );
+                $this->repository->save($userProjection);
+            }
+
         } catch (AuthenticationException $e) {
             if (preg_match($this->pathRegexp, $uri) > 0) {
                 throw $e;

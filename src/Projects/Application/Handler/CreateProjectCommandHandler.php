@@ -17,6 +17,12 @@ use App\General\Application\Bus\Command\CommandHandlerInterface;
 use App\General\Application\Bus\Event\IntegrationEventBusInterface;
 use App\General\Application\Service\AuthenticatorServiceInterface;
 
+/**
+ * Class CreateProjectCommandHandler
+ *
+ * @package App\Projects\Application\Handler
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final readonly class CreateProjectCommandHandler implements CommandHandlerInterface
 {
     public function __construct(

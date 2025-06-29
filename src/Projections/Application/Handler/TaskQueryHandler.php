@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projections\Application\Handler;
 
+use App\General\Application\Service\CurrentUserExtractorInterface;
 use App\General\Infrastructure\ValueObject\SymfonyUser;
 use App\Projections\Application\Query\TaskQuery;
 use App\Projections\Domain\Entity\TaskProjection;
@@ -13,6 +14,8 @@ use App\Projections\Domain\Repository\ProjectProjectionRepositoryInterface;
 use App\Projections\Domain\Repository\TaskProjectionRepositoryInterface;
 use App\General\Application\Bus\Query\QueryHandlerInterface;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
 use function sprintf;
 
 /**
@@ -21,16 +24,19 @@ use function sprintf;
  * @package App\Projections\Application\Handler
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
+#[AsMessageHandler]
 final readonly class TaskQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private TaskProjectionRepositoryInterface $repository,
         private ProjectProjectionRepositoryInterface $projectRepository,
+        private CurrentUserExtractorInterface $userExtractor
     ) {
     }
 
-    public function __invoke(SymfonyUser $user, TaskQuery $query): TaskProjection
+    public function __invoke(TaskQuery $query): TaskProjection
     {
+        $user = $this->userExtractor->extract();
         $task = $this->repository->findById($query->id);
         if ($task === null) {
             throw new ObjectDoesNotExistException(sprintf('Task "%s" does not exist.', $query->id));
